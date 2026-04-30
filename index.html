@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- BASIC -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- CACHE (DEV üçün qalır, prod-da silə bilərsən) -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <!-- CONTENT SECURITY POLICY -->
+  <!-- CSP removed - hosting provider manages security policies -->
+
+  <!-- SEO CORE -->
+  <title>RipCrack – Professional Software Catalog & Services</title>
+  <meta name="description"
+    content="RipCrack provides professional software catalog, pricing plans, and authorized reverse engineering services. Fast, secure, and global." />
+  <link rel="canonical" href="https://ripcrack.net/" />
+
+  <!-- OPEN GRAPH (Facebook, Telegram, WhatsApp) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="RipCrack – Professional Software Catalog" />
+  <meta property="og:description"
+    content="Explore our professional software catalog, pricing, and services. Trusted worldwide since 2019." />
+  <meta property="og:url" content="https://ripcrack.net/" />
+  <meta property="og:image" content="https://ripcrack.net/og-image.jpg" />
+
+  <!-- TWITTER -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="RipCrack – Professional Software Catalog" />
+  <meta name="twitter:description"
+    content="Professional software catalog, pricing and services. Fast, secure and trusted." />
+  <meta name="twitter:image" content="https://ripcrack.net/og-image.jpg" />
+
+  <!-- FAVICON -->
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+  <link rel="icon" href="/favicon-16x16.png" type="image/png" sizes="16x16" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <!-- STRUCTURED DATA (GLOBAL) -->
+  <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "RipCrack",
+        "url": "https://ripcrack.net",
+        "logo": "https://ripcrack.net/logo.png",
+        "foundingDate": "2019",
+        "sameAs": [
+          "https://t.me/ripcrack"
+        ]
+      }
+    </script>
+
+  <!-- GOOGLE SITE KIT -->
+  <!-- Google Analytics (gtag.js) - VITE_GOOGLE_ANALYTICS_ID environment variable-dan götürülür -->
+  <script type="module">
+    (function () {
+      const gaId = import.meta.env.VITE_GOOGLE_ANALYTICS_ID;
+      if (!gaId) return;
+
+      // Load gtag.js dynamically
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = `https://www.googletagmanager.com/gtag/js?id=${gaId}`;
+      document.head.appendChild(script);
+
+      // Initialize dataLayer
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', gaId, {
+        page_path: window.location.pathname,
+      });
+      window.gtag = gtag;
+    })();
+  </script>
+
+  <!-- Google Tag Manager - VITE_GOOGLE_TAG_MANAGER_ID environment variable-dan götürülür -->
+  <script type="module">
+    (function () {
+      const gtmId = import.meta.env.VITE_GOOGLE_TAG_MANAGER_ID;
+      if (!gtmId) return;
+
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({
+          'gtm.start':
+            new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', gtmId);
+    })();
+  </script>
+
+  <!-- Google Search Console Verification - VITE_GOOGLE_SITE_VERIFICATION environment variable-dan götürülür -->
+  <script type="module">
+    (function () {
+      const verificationCode = import.meta.env.VITE_GOOGLE_SITE_VERIFICATION;
+      if (verificationCode) {
+        const meta = document.createElement('meta');
+        meta.name = 'google-site-verification';
+        meta.content = verificationCode;
+        document.head.appendChild(meta);
+      }
+    })();
+  </script>
+  <!-- CHATBOT WIDGET -->
+  <script>
+    window.ChatbotConfig = {
+      apiKey: "site_2q6v69gck3amoimei25",
+      apiUrl: "https://api.chatmesaj.cc"
+    };
+  </script>
+  <!-- widget-embed.js is self-hosted on the backend so embed.html can load cross-origin -->
+  <script src="http://localhost:3003/widget-embed.js" async></script>
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <script type="module">
+      (function () {
+        const gtmId = import.meta.env.VITE_GOOGLE_TAG_MANAGER_ID;
+        if (gtmId) {
+          document.write('<iframe src="https://www.googletagmanager.com/ns.html?id=' + gtmId + '" height="0" width="0" style="display:none;visibility:hidden"></iframe>');
+        }
+      })();
+    </script>
+  </noscript>
+
+  <div id="root"></div>
+
+  <!-- MAIN APP -->
+  <script type="module" src="/src/main.tsx"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+# Domains
+# - Frontend: ripcrack.net (+ www)
+# - Directus Admin + API: admin.ripcrack.net
+
+ripcrack.net, www.ripcrack.net {
+  encode gzip
+  reverse_proxy web:80
+}
+
+admin.ripcrack.net {
+  encode gzip
+  reverse_proxy directus:8055
+}
