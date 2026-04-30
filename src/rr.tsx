@@ -748,7 +748,7 @@ export default function LightCatalogDemo(): JSX.Element {
     }
   };
 
-  const gatewayBase = "/api";
+  const gatewayBase = import.meta.env.VITE_API_URL || "/api";
   const isProbablyJwt = (token: string) => token.split(".").length === 3;
 
   const getDeviceId = () => {

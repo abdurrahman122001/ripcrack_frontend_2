@@ -1,6 +1,6 @@
 export type ApiError = { error?: any };
 
-const gatewayBase = "/api";
+const gatewayBase = import.meta.env.VITE_API_URL || "/api";
 
 class ApiErrorClass extends Error {
   status: number;

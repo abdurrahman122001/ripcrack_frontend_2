@@ -851,7 +851,7 @@ export default function LightCatalogDemo(): JSX.Element {
     }
   };
 
-  const gatewayBase = "/api";
+  const gatewayBase = import.meta.env.VITE_API_URL || "/api";
   class ApiError extends Error {
     status: number;
     retryAfterMs?: number;
