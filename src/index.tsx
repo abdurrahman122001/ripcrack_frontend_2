@@ -47,18 +47,18 @@ const BrandChip = memo(({ b }: { b: Brand }) => {
         isSvg ? (
           // SVG: use object-contain to preserve aspect ratio and center it
           <div className="h-full w-full flex items-center justify-center p-2 sm:p-3 bg-white">
-            <img 
-              src={b.logo} 
-              alt={b.name} 
+            <img
+              src={b.logo}
+              alt={b.name}
               className="h-full w-full object-contain"
               style={{ maxWidth: '100%', maxHeight: '100%' }}
             />
           </div>
         ) : (
           // Raster images: use object-cover to fill the container
-          <img 
-            src={b.logo} 
-            alt={b.name} 
+          <img
+            src={b.logo}
+            alt={b.name}
             className="h-full w-full object-cover"
           />
         )
@@ -124,8 +124,8 @@ const ManualBrandCarousel = memo(({ brands, title, showTitle = true }: { brands:
         >
           ‹
         </button>
-        <div 
-          ref={scrollerRef} 
+        <div
+          ref={scrollerRef}
           className="flex-1 overflow-x-auto scroll-smooth no-scrollbar"
           style={{
             scrollbarWidth: 'none',
@@ -172,7 +172,7 @@ const BrandStripAuto = memo(({ brands }: { brands: Brand[] }) => {
         <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-6 sm:w-10 bg-gradient-to-r from-white to-transparent z-10" />
         <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-6 sm:w-10 bg-gradient-to-l from-white to-transparent z-10" />
         <div className="py-3 sm:py-6">
-          <div 
+          <div
             ref={trackRef}
             className="marquee-track-persistent"
           >
@@ -228,7 +228,7 @@ export default function LightCatalogDemo(): JSX.Element {
   const navigate = useNavigate();
   const location = useLocation();
   const params = useParams();
-  
+
   // Sync URL with page state
   const getPageFromPath = (pathname: string): Page => {
     const path = pathname.replace(/^\//, "").split("/")[0] || "home";
@@ -262,7 +262,7 @@ export default function LightCatalogDemo(): JSX.Element {
   };
 
   const [pageState, setPageStateInternal] = useState<Page>(() => getPageFromPath(location.pathname));
-  
+
   // Get product ID from URL params if on product page, otherwise default to 1
   const getProductIdFromUrl = () => {
     if (params.id && getPageFromPath(location.pathname) === "product") {
@@ -271,22 +271,22 @@ export default function LightCatalogDemo(): JSX.Element {
     }
     return 1;
   };
-  
+
   // Declare selectedProductId BEFORE setPage to avoid initialization error
   const [selectedProductId, setSelectedProductId] = useState(() => getProductIdFromUrl());
-  
+
   // Sync selectedProductId with URL param when URL changes
   useEffect(() => {
     if (pageState === "product") {
       const pathParts = location.pathname.replace(/^\//, "").split("/");
-      
+
       // Ensure we're actually on a /product/... path
       if (pathParts[0] !== "product") {
         return;
       }
-      
+
       const routeOrId = pathParts[1]; // Get the route/id part (second segment after /product/)
-      
+
       if (routeOrId) {
         // Check if it's a numeric ID (from /product/:id)
         const numericId = Number(routeOrId);
@@ -324,7 +324,7 @@ export default function LightCatalogDemo(): JSX.Element {
       }
     }
   }, [pageState, location.pathname, selectedProductId]);
-  
+
   // Sync page state with URL
   useEffect(() => {
     const newPage = getPageFromPath(location.pathname);
@@ -332,7 +332,7 @@ export default function LightCatalogDemo(): JSX.Element {
       setPageStateInternal(newPage);
     }
   }, [location.pathname]);
-  
+
   const page = pageState;
 
   // Form/panel səhifələrində auto interval/polling işləməsin (yazılar silinməsin)
@@ -345,7 +345,7 @@ export default function LightCatalogDemo(): JSX.Element {
       x.includes("checkout") ||
       x.includes("fraud") ||
       x.includes("attention") ||
-      x.includes("coupons") 
+      x.includes("coupons")
     ) return true;
 
     // admin side (bütün admin panel səhifələri)
@@ -368,7 +368,7 @@ export default function LightCatalogDemo(): JSX.Element {
         page_path: window.location.pathname + window.location.search,
         page_title: document.title,
       });
-      
+
     }
   }, [page]);
 
@@ -384,7 +384,7 @@ export default function LightCatalogDemo(): JSX.Element {
   const [testimonialIdx, setTestimonialIdx] = useState(0);
   const [testimonialManualAt, setTestimonialManualAt] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  
+
   // Nav items from API
   type NavItemT = { id?: number; label: string; page: string; sortOrder?: number; visible?: boolean };
   const [navItems, setNavItems] = useState<NavItemT[]>([
@@ -637,7 +637,7 @@ export default function LightCatalogDemo(): JSX.Element {
         {props.setSeoKeywords && (
           <div className="mt-4 pt-4 border-t border-slate-200">
             <div className="text-xs font-semibold text-slate-700 mb-3">Keywords by Strength (Rank Math style)</div>
-            
+
             <div className="space-y-3">
               {/* Strong Keywords */}
               <div>
@@ -762,8 +762,8 @@ export default function LightCatalogDemo(): JSX.Element {
 
             <div className="mt-3 text-xs text-slate-500">
               Total: {(props.seoKeywords || []).length} keywords
-              ({(props.seoKeywords || []).filter(k => k.strength === "strong").length} strong, 
-              {(props.seoKeywords || []).filter(k => k.strength === "medium").length} medium, 
+              ({(props.seoKeywords || []).filter(k => k.strength === "strong").length} strong,
+              {(props.seoKeywords || []).filter(k => k.strength === "medium").length} medium,
               {(props.seoKeywords || []).filter(k => k.strength === "weak").length} weak)
             </div>
           </div>
@@ -799,7 +799,6 @@ export default function LightCatalogDemo(): JSX.Element {
     refreshNavItems();
     refreshHomeFeatured();
   }, []);
-
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -1007,7 +1006,7 @@ export default function LightCatalogDemo(): JSX.Element {
     // Check if product has both personal and business prices
     const hasPersonalPrice = !!(p as any).personalPrice;
     const hasBusinessPrice = !!(p as any).businessPrice;
-    
+
     if (hasPersonalPrice && hasBusinessPrice) {
       // Show modal to select type
       setAddToCartModal({ product: p, qty });
@@ -1161,16 +1160,16 @@ export default function LightCatalogDemo(): JSX.Element {
     c === "All"
       ? t("cat.all")
       : c === "Design"
-      ? t("cat.design")
-      : c === "Security"
-      ? t("cat.security")
-      : c === "Marketing"
-      ? t("cat.marketing")
-      : c === "Automation"
-      ? t("cat.automation")
-      : c === "AI Tools"
-      ? t("cat.aiTools")
-      : c;
+        ? t("cat.design")
+        : c === "Security"
+          ? t("cat.security")
+          : c === "Marketing"
+            ? t("cat.marketing")
+            : c === "Automation"
+              ? t("cat.automation")
+              : c === "AI Tools"
+                ? t("cat.aiTools")
+                : c;
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -1189,12 +1188,12 @@ export default function LightCatalogDemo(): JSX.Element {
   // Enhanced setPage that also updates URL - defined after products is available
   const setPage = useCallback((newPage: Page, productId?: number) => {
     setPageStateInternal(newPage);
-    
+
     // Update selectedProductId if navigating to product page with an ID
     if (newPage === "product" && productId && Number.isFinite(productId) && productId > 0) {
       setSelectedProductId(productId);
     }
-    
+
     // Get product route if available
     const getProductRoute = () => {
       const targetProductId = productId || selectedProductId || 1;
@@ -1204,7 +1203,7 @@ export default function LightCatalogDemo(): JSX.Element {
       }
       return `/product/${targetProductId}`;
     };
-    
+
     const routeMap: Record<Page, string> = {
       "home": "/",
       "shop": "/shop",
@@ -1422,7 +1421,7 @@ export default function LightCatalogDemo(): JSX.Element {
 
   const testimonialAutoplayMs = 3000; // Time between autoplay transitions
   const testimonialPauseAfterManualMs = 5000; // Pause autoplay for 5 seconds after manual click
-  
+
   const setTestimonialIdxManual = (next: number | ((prev: number) => number)) => {
     setTestimonialManualAt(Date.now());
     setTestimonialIdx((prev) => {
@@ -1435,28 +1434,28 @@ export default function LightCatalogDemo(): JSX.Element {
   useEffect(() => {
     // Only autoplay on home page
     if (page !== "home") return;
-    
+
     const len = testimonials.length;
     if (len <= 1) return; // No need to autoplay if 1 or fewer testimonials
-    
+
     let intervalId: ReturnType<typeof setInterval> | null = null;
-    
+
     const startAutoplay = () => {
       // Clear any existing interval
       if (intervalId) {
         window.clearInterval(intervalId);
         intervalId = null;
       }
-      
+
       // Start autoplay interval
       intervalId = window.setInterval(() => {
-      setTestimonialIdx((x) => (x + 1) % len);
-    }, testimonialAutoplayMs);
+        setTestimonialIdx((x) => (x + 1) % len);
+      }, testimonialAutoplayMs);
     };
-    
+
     // Check if user recently clicked (within pause period)
     const timeSinceManualClick = testimonialManualAt ? Date.now() - testimonialManualAt : Infinity;
-    
+
     if (timeSinceManualClick < testimonialPauseAfterManualMs) {
       // User clicked recently, pause autoplay
       // Set a timer to resume after pause period
@@ -1464,7 +1463,7 @@ export default function LightCatalogDemo(): JSX.Element {
       const resumeTimer = window.setTimeout(() => {
         startAutoplay();
       }, remainingPauseTime);
-      
+
       return () => {
         window.clearTimeout(resumeTimer);
         if (intervalId) window.clearInterval(intervalId);
@@ -1472,7 +1471,7 @@ export default function LightCatalogDemo(): JSX.Element {
     } else {
       // No recent manual click, start autoplay immediately
       startAutoplay();
-      
+
       return () => {
         if (intervalId) window.clearInterval(intervalId);
       };
@@ -1715,9 +1714,8 @@ export default function LightCatalogDemo(): JSX.Element {
   const Pill = ({ active, children, onClick }: { active?: boolean; children: React.ReactNode; onClick?: () => void }) => (
     <button
       onClick={onClick}
-      className={`rounded-full px-4 py-2 text-sm border transition ${
-        active ? "bg-emerald-600 text-white border-emerald-600" : "bg-white text-slate-700 border-slate-200 hover:border-slate-300 hover:bg-slate-50"
-      }`}
+      className={`rounded-full px-4 py-2 text-sm border transition ${active ? "bg-emerald-600 text-white border-emerald-600" : "bg-white text-slate-700 border-slate-200 hover:border-slate-300 hover:bg-slate-50"
+        }`}
     >
       {children}
     </button>
@@ -1736,7 +1734,7 @@ export default function LightCatalogDemo(): JSX.Element {
   const ProductCard = ({ p }: { p: ProductT }) => {
     const stats = productStats[p.id] || { views: p.views, sold: p.sold };
     const cover = p.images?.[0];
-    
+
     // Card display: show personal price; only if admin set no personal price, show business price
     let effectivePrice: string;
     const businessPrice = String((p as any).businessPrice || "").trim();
@@ -1885,100 +1883,100 @@ export default function LightCatalogDemo(): JSX.Element {
 
           <Card className="p-4">
             {homeFeatured.length > 0 && (
-            <>
-            <div className="rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 h-72 flex items-end justify-between p-6 relative overflow-hidden">
-              {(() => {
-                const productList = homeFeatured.map(hf => hf.product);
-                const featuredProduct = productList[featuredIdx] || homeFeatured[0]?.product;
-                const productImage = featuredProduct?.images?.[0];
-                return productImage ? (
-                  <img 
-                    src={productImage} 
-                    alt={featuredProduct?.title || "Featured product"} 
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
-                ) : null;
-              })()}
-              <div className="relative z-10 flex flex-col items-start gap-2">
-                {(() => {
-                  const productList = homeFeatured.map(hf => hf.product);
-                  const featuredProduct = productList[featuredIdx] || homeFeatured[0]?.product;
-                  const category = featuredProduct?.category;
-                  return category ? (
-                    <span className="inline-block text-xs text-slate-500 bg-white/95 px-2 py-1 rounded">{category}</span>
-                  ) : null;
-                })()}
-                {(() => {
-                  const productList = homeFeatured.map(hf => hf.product);
-                  const featuredProduct = productList[featuredIdx] || homeFeatured[0]?.product;
-                  const title = featuredProduct?.title || "Featured";
-                  return (
-                    <span className="inline-block text-xl font-semibold text-slate-900 bg-white/95 px-2 py-1 rounded">{title}</span>
-                  );
-                })()}
-                {(() => {
-                  const productList = homeFeatured.map(hf => hf.product);
-                  const featuredProduct = productList[featuredIdx] || homeFeatured[0]?.product;
-                  let effectivePrice: string | null = null;
-                  if (featuredProduct) {
-                    const businessPrice = String((featuredProduct as any)?.businessPrice || "").trim();
-                    const personalPrice = String((featuredProduct as any)?.personalPrice || "").trim();
-                    const hasPersonal = personalPrice && personalPrice !== "Price on request";
-                    const hasBusiness = businessPrice && businessPrice !== "Price on request";
-                    if (hasPersonal) {
-                      effectivePrice = `${personalPrice}(personal)`;
-                    } else if (hasBusiness) {
-                      effectivePrice = `${businessPrice}(business)`;
-                    } else {
-                      effectivePrice = featuredProduct.price;
-                    }
-                  }
-                  return effectivePrice ? (
-                    <span className="inline-block text-sm text-slate-600 bg-white/95 px-2 py-1 rounded">{effectivePrice}</span>
-                  ) : null;
-                })()}
-              </div>
-              <button
-                onClick={() => {
-                  const productList = homeFeatured.map(hf => hf.product);
-                  const p = productList[featuredIdx] || homeFeatured[0]?.product;
-                  if (p?.id) {
-                    setPage("product", p.id);
-                    return;
-                  }
-                  setPage("shop");
-                }}
-                className="relative z-10 rounded-xl bg-white border border-slate-200 px-4 py-2 text-sm hover:bg-slate-50"
-              >
-                {t("home.shopNow")}
-              </button>
-            </div>
-
-            {(() => {
-              const productList = homeFeatured.map(hf => hf.product);
-              return productList.length > 1 ? (
-                <div className="mt-3 flex items-center justify-center gap-2">
+              <>
+                <div className="rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 h-72 flex items-end justify-between p-6 relative overflow-hidden">
+                  {(() => {
+                    const productList = homeFeatured.map(hf => hf.product);
+                    const featuredProduct = productList[featuredIdx] || homeFeatured[0]?.product;
+                    const productImage = featuredProduct?.images?.[0];
+                    return productImage ? (
+                      <img
+                        src={productImage}
+                        alt={featuredProduct?.title || "Featured product"}
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    ) : null;
+                  })()}
+                  <div className="relative z-10 flex flex-col items-start gap-2">
+                    {(() => {
+                      const productList = homeFeatured.map(hf => hf.product);
+                      const featuredProduct = productList[featuredIdx] || homeFeatured[0]?.product;
+                      const category = featuredProduct?.category;
+                      return category ? (
+                        <span className="inline-block text-xs text-slate-500 bg-white/95 px-2 py-1 rounded">{category}</span>
+                      ) : null;
+                    })()}
+                    {(() => {
+                      const productList = homeFeatured.map(hf => hf.product);
+                      const featuredProduct = productList[featuredIdx] || homeFeatured[0]?.product;
+                      const title = featuredProduct?.title || "Featured";
+                      return (
+                        <span className="inline-block text-xl font-semibold text-slate-900 bg-white/95 px-2 py-1 rounded">{title}</span>
+                      );
+                    })()}
+                    {(() => {
+                      const productList = homeFeatured.map(hf => hf.product);
+                      const featuredProduct = productList[featuredIdx] || homeFeatured[0]?.product;
+                      let effectivePrice: string | null = null;
+                      if (featuredProduct) {
+                        const businessPrice = String((featuredProduct as any)?.businessPrice || "").trim();
+                        const personalPrice = String((featuredProduct as any)?.personalPrice || "").trim();
+                        const hasPersonal = personalPrice && personalPrice !== "Price on request";
+                        const hasBusiness = businessPrice && businessPrice !== "Price on request";
+                        if (hasPersonal) {
+                          effectivePrice = `${personalPrice}(personal)`;
+                        } else if (hasBusiness) {
+                          effectivePrice = `${businessPrice}(business)`;
+                        } else {
+                          effectivePrice = featuredProduct.price;
+                        }
+                      }
+                      return effectivePrice ? (
+                        <span className="inline-block text-sm text-slate-600 bg-white/95 px-2 py-1 rounded">{effectivePrice}</span>
+                      ) : null;
+                    })()}
+                  </div>
                   <button
-                    type="button"
-                    onClick={() => setFeaturedIdx((x) => (x - 1 + productList.length) % productList.length)}
-                    className="h-9 w-9 rounded-full border border-slate-200 bg-white hover:bg-slate-50 text-slate-700"
-                    aria-label="Previous featured"
+                    onClick={() => {
+                      const productList = homeFeatured.map(hf => hf.product);
+                      const p = productList[featuredIdx] || homeFeatured[0]?.product;
+                      if (p?.id) {
+                        setPage("product", p.id);
+                        return;
+                      }
+                      setPage("shop");
+                    }}
+                    className="relative z-10 rounded-xl bg-white border border-slate-200 px-4 py-2 text-sm hover:bg-slate-50"
                   >
-                    ‹
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setFeaturedIdx((x) => (x + 1) % productList.length)}
-                    className="h-9 w-9 rounded-full border border-slate-200 bg-white hover:bg-slate-50 text-slate-700"
-                    aria-label="Next featured"
-                  >
-                    ›
+                    {t("home.shopNow")}
                   </button>
                 </div>
-              ) : null;
-            })()}
 
-            </>
+                {(() => {
+                  const productList = homeFeatured.map(hf => hf.product);
+                  return productList.length > 1 ? (
+                    <div className="mt-3 flex items-center justify-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setFeaturedIdx((x) => (x - 1 + productList.length) % productList.length)}
+                        className="h-9 w-9 rounded-full border border-slate-200 bg-white hover:bg-slate-50 text-slate-700"
+                        aria-label="Previous featured"
+                      >
+                        ‹
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setFeaturedIdx((x) => (x + 1) % productList.length)}
+                        className="h-9 w-9 rounded-full border border-slate-200 bg-white hover:bg-slate-50 text-slate-700"
+                        aria-label="Next featured"
+                      >
+                        ›
+                      </button>
+                    </div>
+                  ) : null;
+                })()}
+
+              </>
             )}
             <div className="mt-4">
               <div className="rounded-2xl bg-white border border-slate-200 overflow-hidden">
@@ -2694,9 +2692,8 @@ export default function LightCatalogDemo(): JSX.Element {
               onDragOver={(e) => { e.preventDefault(); setDragOver(true); }}
               onDragLeave={() => setDragOver(false)}
               onDrop={handleDrop}
-              className={`border-2 border-dashed rounded-xl py-8 px-4 text-center transition ${
-                dragOver ? "border-emerald-500 bg-emerald-50" : "border-slate-200 bg-slate-50"
-              }`}
+              className={`border-2 border-dashed rounded-xl py-8 px-4 text-center transition ${dragOver ? "border-emerald-500 bg-emerald-50" : "border-slate-200 bg-slate-50"
+                }`}
             >
               {attachment ? (
                 <div className="flex items-center justify-center gap-2">
@@ -2723,11 +2720,10 @@ export default function LightCatalogDemo(): JSX.Element {
                 <button
                   key={idx}
                   onClick={() => setSmileyRating(idx)}
-                  className={`text-3xl p-2 rounded-full transition ${
-                    smileyRating === idx 
-                      ? "bg-emerald-100 ring-2 ring-emerald-500 scale-110" 
+                  className={`text-3xl p-2 rounded-full transition ${smileyRating === idx
+                      ? "bg-emerald-100 ring-2 ring-emerald-500 scale-110"
                       : "grayscale opacity-50 hover:opacity-100 hover:grayscale-0"
-                  }`}
+                    }`}
                 >
                   {emoji}
                 </button>
@@ -2898,7 +2894,7 @@ export default function LightCatalogDemo(): JSX.Element {
                 <div className="absolute top-2 right-2 text-white text-xs font-bold">
                   {c.discountType === "PERCENTAGE" ? `${c.discountValue}%` : `$${c.discountValue}`}
                 </div>
-                
+
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <div className="font-mono text-lg font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-lg inline-block">
@@ -3031,166 +3027,166 @@ export default function LightCatalogDemo(): JSX.Element {
             ) : null}
 
             {faqs.length === 0 ? (
+              <Card className="p-6">
+                <div className="space-y-3">
+                  <details className="rounded-xl border border-slate-200 bg-white px-4 py-3">
+                    <summary className="cursor-pointer select-none text-sm font-semibold text-slate-900">1. What is RipCrack?</summary>
+                    <div className="mt-3 text-sm text-slate-600 leading-relaxed">
+                      <p>
+                        RipCrack is a software development and IT consulting team providing custom development, reverse engineering, authorized cracking services, software analysis, and security research.
+                      </p>
+                      <p className="mt-2">We have been actively delivering services since 2019.</p>
+                    </div>
+                  </details>
+
+                  <details className="rounded-xl border border-slate-200 bg-white px-4 py-3">
+                    <summary className="cursor-pointer select-none text-sm font-semibold text-slate-900">2. Is RipCrack a legal company?</summary>
+                    <div className="mt-3 text-sm text-slate-600 leading-relaxed">
+                      <p>Yes. All services are performed legally, ethically, and with client authorization.</p>
+                      <p className="mt-2">
+                        Reverse engineering and cracking-related services are used for license recovery, legacy software access, security testing, software protection analysis, and compatibility purposes.
+                      </p>
+                    </div>
+                  </details>
+
+                  <details className="rounded-xl border border-slate-200 bg-white px-4 py-3">
+                    <summary className="cursor-pointer select-none text-sm font-semibold text-slate-900">3. What do you mean by “crack services”?</summary>
+                    <div className="mt-3 text-sm text-slate-600 leading-relaxed">
+                      <p>
+                        By crack services, we mean authorized software cracking and license bypass solutions performed only with the permission of the software owner or rights holder.
+                      </p>
+                      <p className="mt-2">These services include:</p>
+                      <ul className="mt-2 pl-5 list-disc space-y-1">
+                        <li>License recovery</li>
+                        <li>DRM and protection mechanism analysis</li>
+                        <li>Internal security testing</li>
+                        <li>Legacy software unlocking</li>
+                        <li>Crack prevention and protection strengthening</li>
+                      </ul>
+                      <p className="mt-2">We do not support piracy or illegal software distribution.</p>
+                    </div>
+                  </details>
+
+                  <details className="rounded-xl border border-slate-200 bg-white px-4 py-3">
+                    <summary className="cursor-pointer select-none text-sm font-semibold text-slate-900">4. Do you offer reverse engineering services?</summary>
+                    <div className="mt-3 text-sm text-slate-600 leading-relaxed">
+                      <p>Yes. We specialize in reverse engineering and binary analysis for desktop, web, and embedded software.</p>
+                      <p className="mt-2">We help clients understand behavior, improve security, migrate legacy systems, and protect IP.</p>
+                    </div>
+                  </details>
+
+                  <details className="rounded-xl border border-slate-200 bg-white px-4 py-3">
+                    <summary className="cursor-pointer select-none text-sm font-semibold text-slate-900">5. Since when has RipCrack been operating?</summary>
+                    <div className="mt-3 text-sm text-slate-600 leading-relaxed">
+                      <p>We have been delivering services since 2019.</p>
+                    </div>
+                  </details>
+
+                  <details className="rounded-xl border border-slate-200 bg-white px-4 py-3">
+                    <summary className="cursor-pointer select-none text-sm font-semibold text-slate-900">6. What industries do you work with?</summary>
+                    <div className="mt-3 text-sm text-slate-600 leading-relaxed">
+                      <p>We work with a wide range of industries, including:</p>
+                      <ul className="mt-2 pl-5 list-disc space-y-1">
+                        <li>Financial services</li>
+                        <li>Energy</li>
+                        <li>Retail &amp; e-commerce</li>
+                        <li>Entertainment &amp; media</li>
+                        <li>Telecommunications</li>
+                        <li>Technology &amp; startups</li>
+                        <li>Printing &amp; print management systems</li>
+                        <li>Dental software &amp; clinic management systems</li>
+                        <li>Embroidery &amp; textile automation</li>
+                        <li>CNC machine software and control systems</li>
+                      </ul>
+                    </div>
+                  </details>
+
+                  <details className="rounded-xl border border-slate-200 bg-white px-4 py-3">
+                    <summary className="cursor-pointer select-none text-sm font-semibold text-slate-900">7. How large is your team?</summary>
+                    <div className="mt-3 text-sm text-slate-600 leading-relaxed">
+                      <p>We work with a distributed team of 30+ highly skilled engineers located in multiple countries worldwide.</p>
+                    </div>
+                  </details>
+
+                  <details className="rounded-xl border border-slate-200 bg-white px-4 py-3">
+                    <summary className="cursor-pointer select-none text-sm font-semibold text-slate-900">8. Do you offer nearshore and offshore development?</summary>
+                    <div className="mt-3 text-sm text-slate-600 leading-relaxed">
+                      <p>
+                        Yes. We provide nearshore and offshore software development, reverse engineering, and crack services to help clients reduce costs while maintaining high quality and security standards.
+                      </p>
+                    </div>
+                  </details>
+
+                  <details className="rounded-xl border border-slate-200 bg-white px-4 py-3">
+                    <summary className="cursor-pointer select-none text-sm font-semibold text-slate-900">9. What is your typical engagement process?</summary>
+                    <div className="mt-3 text-sm text-slate-600 leading-relaxed">
+                      <p>We usually start with a short discovery call, define scope and deliverables, then execute with weekly updates.</p>
+                      <p className="mt-2">For sensitive reverse engineering/cracking requests, we may require proof of authorization.</p>
+                    </div>
+                  </details>
+
+                  <details className="rounded-xl border border-slate-200 bg-white px-4 py-3">
+                    <summary className="cursor-pointer select-none text-sm font-semibold text-slate-900">10. Do you provide ongoing support?</summary>
+                    <div className="mt-3 text-sm text-slate-600 leading-relaxed">
+                      <p>Yes. We can provide maintenance, updates, security reviews, and long-term technical support depending on the engagement.</p>
+                    </div>
+                  </details>
+
+                  <details className="rounded-xl border border-slate-200 bg-white px-4 py-3">
+                    <summary className="cursor-pointer select-none text-sm font-semibold text-slate-900">11. How do I contact support?</summary>
+                    <div className="mt-3 text-sm text-slate-600 leading-relaxed">
+                      <p>Use the Contact page or message us through the support channels listed below.</p>
+                      <div className="mt-3 text-sm text-slate-600">
+                        <LegalContacts />
+                      </div>
+                    </div>
+                  </details>
+
+                  <details className="rounded-xl border border-slate-200 bg-white px-4 py-3">
+                    <summary className="cursor-pointer select-none text-sm font-semibold text-slate-900">12. Why choose RipCrack?</summary>
+                    <div className="mt-3 text-sm text-slate-600 leading-relaxed">
+                      <p>Clients choose RipCrack because we offer:</p>
+                      <ul className="mt-2 pl-5 list-disc space-y-1">
+                        <li>Proven expertise in software development, reverse engineering, and crack services</li>
+                        <li>Strong focus on security and legality</li>
+                        <li>On-time and within-scope delivery</li>
+                        <li>Competitive pricing compared to U.S.-based teams</li>
+                        <li>Long-term technical partnership mindset</li>
+                      </ul>
+                    </div>
+                  </details>
+                </div>
+              </Card>
+            ) : null}
+          </div>
+
+          <div className="space-y-6">
             <Card className="p-6">
-              <div className="space-y-3">
-              <details className="rounded-xl border border-slate-200 bg-white px-4 py-3">
-                <summary className="cursor-pointer select-none text-sm font-semibold text-slate-900">1. What is RipCrack?</summary>
-                <div className="mt-3 text-sm text-slate-600 leading-relaxed">
-                  <p>
-                    RipCrack is a software development and IT consulting team providing custom development, reverse engineering, authorized cracking services, software analysis, and security research.
-                  </p>
-                  <p className="mt-2">We have been actively delivering services since 2019.</p>
-                </div>
-              </details>
+              <div className="text-sm font-semibold text-slate-900">Contact</div>
+              <LegalContacts />
+            </Card>
 
-              <details className="rounded-xl border border-slate-200 bg-white px-4 py-3">
-                <summary className="cursor-pointer select-none text-sm font-semibold text-slate-900">2. Is RipCrack a legal company?</summary>
-                <div className="mt-3 text-sm text-slate-600 leading-relaxed">
-                  <p>Yes. All services are performed legally, ethically, and with client authorization.</p>
-                  <p className="mt-2">
-                    Reverse engineering and cracking-related services are used for license recovery, legacy software access, security testing, software protection analysis, and compatibility purposes.
-                  </p>
+            <Card className="p-6">
+              <div className="text-sm font-semibold text-slate-900">Quick facts</div>
+              <div className="mt-4 grid grid-cols-3 gap-3">
+                <div className="rounded-2xl border border-slate-200 bg-white p-3 min-w-0">
+                  <div className="text-xs text-slate-500">Founded</div>
+                  <div className="mt-1 text-base font-semibold text-slate-900">2019</div>
                 </div>
-              </details>
-
-              <details className="rounded-xl border border-slate-200 bg-white px-4 py-3">
-                <summary className="cursor-pointer select-none text-sm font-semibold text-slate-900">3. What do you mean by “crack services”?</summary>
-                <div className="mt-3 text-sm text-slate-600 leading-relaxed">
-                  <p>
-                    By crack services, we mean authorized software cracking and license bypass solutions performed only with the permission of the software owner or rights holder.
-                  </p>
-                  <p className="mt-2">These services include:</p>
-                  <ul className="mt-2 pl-5 list-disc space-y-1">
-                    <li>License recovery</li>
-                    <li>DRM and protection mechanism analysis</li>
-                    <li>Internal security testing</li>
-                    <li>Legacy software unlocking</li>
-                    <li>Crack prevention and protection strengthening</li>
-                  </ul>
-                  <p className="mt-2">We do not support piracy or illegal software distribution.</p>
+                <div className="rounded-2xl border border-slate-200 bg-white p-3 min-w-0">
+                  <div className="text-xs text-slate-500">Projects</div>
+                  <div className="mt-1 text-base font-semibold text-slate-900">300+</div>
                 </div>
-              </details>
-
-              <details className="rounded-xl border border-slate-200 bg-white px-4 py-3">
-                <summary className="cursor-pointer select-none text-sm font-semibold text-slate-900">4. Do you offer reverse engineering services?</summary>
-                <div className="mt-3 text-sm text-slate-600 leading-relaxed">
-                  <p>Yes. We specialize in reverse engineering and binary analysis for desktop, web, and embedded software.</p>
-                  <p className="mt-2">We help clients understand behavior, improve security, migrate legacy systems, and protect IP.</p>
+                <div className="rounded-2xl border border-slate-200 bg-white p-3 min-w-0">
+                  <div className="text-xs text-slate-500">Clients</div>
+                  <div className="mt-1 text-base font-semibold text-slate-900 truncate">Global</div>
                 </div>
-              </details>
-
-              <details className="rounded-xl border border-slate-200 bg-white px-4 py-3">
-                <summary className="cursor-pointer select-none text-sm font-semibold text-slate-900">5. Since when has RipCrack been operating?</summary>
-                <div className="mt-3 text-sm text-slate-600 leading-relaxed">
-                  <p>We have been delivering services since 2019.</p>
-                </div>
-              </details>
-
-              <details className="rounded-xl border border-slate-200 bg-white px-4 py-3">
-                <summary className="cursor-pointer select-none text-sm font-semibold text-slate-900">6. What industries do you work with?</summary>
-                <div className="mt-3 text-sm text-slate-600 leading-relaxed">
-                  <p>We work with a wide range of industries, including:</p>
-                  <ul className="mt-2 pl-5 list-disc space-y-1">
-                    <li>Financial services</li>
-                    <li>Energy</li>
-                    <li>Retail &amp; e-commerce</li>
-                    <li>Entertainment &amp; media</li>
-                    <li>Telecommunications</li>
-                    <li>Technology &amp; startups</li>
-                    <li>Printing &amp; print management systems</li>
-                    <li>Dental software &amp; clinic management systems</li>
-                    <li>Embroidery &amp; textile automation</li>
-                    <li>CNC machine software and control systems</li>
-                  </ul>
-                </div>
-              </details>
-
-              <details className="rounded-xl border border-slate-200 bg-white px-4 py-3">
-                <summary className="cursor-pointer select-none text-sm font-semibold text-slate-900">7. How large is your team?</summary>
-                <div className="mt-3 text-sm text-slate-600 leading-relaxed">
-                  <p>We work with a distributed team of 30+ highly skilled engineers located in multiple countries worldwide.</p>
-                </div>
-              </details>
-
-              <details className="rounded-xl border border-slate-200 bg-white px-4 py-3">
-                <summary className="cursor-pointer select-none text-sm font-semibold text-slate-900">8. Do you offer nearshore and offshore development?</summary>
-                <div className="mt-3 text-sm text-slate-600 leading-relaxed">
-                  <p>
-                    Yes. We provide nearshore and offshore software development, reverse engineering, and crack services to help clients reduce costs while maintaining high quality and security standards.
-                  </p>
-                </div>
-              </details>
-
-              <details className="rounded-xl border border-slate-200 bg-white px-4 py-3">
-                <summary className="cursor-pointer select-none text-sm font-semibold text-slate-900">9. What is your typical engagement process?</summary>
-                <div className="mt-3 text-sm text-slate-600 leading-relaxed">
-                  <p>We usually start with a short discovery call, define scope and deliverables, then execute with weekly updates.</p>
-                  <p className="mt-2">For sensitive reverse engineering/cracking requests, we may require proof of authorization.</p>
-                </div>
-              </details>
-
-              <details className="rounded-xl border border-slate-200 bg-white px-4 py-3">
-                <summary className="cursor-pointer select-none text-sm font-semibold text-slate-900">10. Do you provide ongoing support?</summary>
-                <div className="mt-3 text-sm text-slate-600 leading-relaxed">
-                  <p>Yes. We can provide maintenance, updates, security reviews, and long-term technical support depending on the engagement.</p>
-                </div>
-              </details>
-
-              <details className="rounded-xl border border-slate-200 bg-white px-4 py-3">
-                <summary className="cursor-pointer select-none text-sm font-semibold text-slate-900">11. How do I contact support?</summary>
-                <div className="mt-3 text-sm text-slate-600 leading-relaxed">
-                  <p>Use the Contact page or message us through the support channels listed below.</p>
-                  <div className="mt-3 text-sm text-slate-600">
-                    <LegalContacts />
-                  </div>
-                </div>
-              </details>
-
-              <details className="rounded-xl border border-slate-200 bg-white px-4 py-3">
-                <summary className="cursor-pointer select-none text-sm font-semibold text-slate-900">12. Why choose RipCrack?</summary>
-                <div className="mt-3 text-sm text-slate-600 leading-relaxed">
-                  <p>Clients choose RipCrack because we offer:</p>
-                  <ul className="mt-2 pl-5 list-disc space-y-1">
-                    <li>Proven expertise in software development, reverse engineering, and crack services</li>
-                    <li>Strong focus on security and legality</li>
-                    <li>On-time and within-scope delivery</li>
-                    <li>Competitive pricing compared to U.S.-based teams</li>
-                    <li>Long-term technical partnership mindset</li>
-                  </ul>
-                </div>
-              </details>
               </div>
             </Card>
-            ) : null}
+          </div>
         </div>
-
-        <div className="space-y-6">
-          <Card className="p-6">
-            <div className="text-sm font-semibold text-slate-900">Contact</div>
-            <LegalContacts />
-          </Card>
-
-          <Card className="p-6">
-            <div className="text-sm font-semibold text-slate-900">Quick facts</div>
-            <div className="mt-4 grid grid-cols-3 gap-3">
-              <div className="rounded-2xl border border-slate-200 bg-white p-3 min-w-0">
-                <div className="text-xs text-slate-500">Founded</div>
-                <div className="mt-1 text-base font-semibold text-slate-900">2019</div>
-              </div>
-              <div className="rounded-2xl border border-slate-200 bg-white p-3 min-w-0">
-                <div className="text-xs text-slate-500">Projects</div>
-                <div className="mt-1 text-base font-semibold text-slate-900">300+</div>
-              </div>
-              <div className="rounded-2xl border border-slate-200 bg-white p-3 min-w-0">
-                <div className="text-xs text-slate-500">Clients</div>
-                <div className="mt-1 text-base font-semibold text-slate-900 truncate">Global</div>
-              </div>
-            </div>
-          </Card>
-        </div>
-      </div>
-    </section>
-  );
+      </section>
+    );
 
   };
 
@@ -3459,7 +3455,7 @@ export default function LightCatalogDemo(): JSX.Element {
     if (!selectedProduct) return null;
     const stats = productStats[selectedProduct.id] || { views: selectedProduct.views, sold: selectedProduct.sold };
     const images = selectedProduct.images || [];
-    
+
     // Display: personal price first; only if admin set no personal, show business
     let effectivePrice: string;
     const businessPrice = String((selectedProduct as any).businessPrice || "").trim();
@@ -3555,23 +3551,21 @@ export default function LightCatalogDemo(): JSX.Element {
   const Pricing = () => (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
       <SectionTitle title={t("nav.pricing")} subtitle="Pick a plan and request by email." />
-      
+
       {/* Toggle Personal/Business */}
       <div className="flex justify-center mb-8">
         <div className="inline-flex rounded-full bg-slate-100 p-1">
           <button
             onClick={() => setSelectedType("Personal")}
-            className={`px-6 py-2 rounded-full text-sm font-medium transition ${
-              selectedType === "Personal" ? "bg-white shadow text-slate-900" : "text-slate-600"
-            }`}
+            className={`px-6 py-2 rounded-full text-sm font-medium transition ${selectedType === "Personal" ? "bg-white shadow text-slate-900" : "text-slate-600"
+              }`}
           >
             Personal
           </button>
           <button
             onClick={() => setSelectedType("Business")}
-            className={`px-6 py-2 rounded-full text-sm font-medium transition ${
-              selectedType === "Business" ? "bg-white shadow text-slate-900" : "text-slate-600"
-            }`}
+            className={`px-6 py-2 rounded-full text-sm font-medium transition ${selectedType === "Business" ? "bg-white shadow text-slate-900" : "text-slate-600"
+              }`}
           >
             Business
           </button>
@@ -3596,7 +3590,7 @@ export default function LightCatalogDemo(): JSX.Element {
                 </span>
               </div>
             </div>
-            
+
             <ul className="mt-6 space-y-3">
               {plan.features.map((feature, idx) => (
                 <li key={idx} className="flex items-center gap-2 text-sm text-slate-700">
@@ -3605,7 +3599,7 @@ export default function LightCatalogDemo(): JSX.Element {
                 </li>
               ))}
             </ul>
-            
+
             <button
               onClick={() => {
                 if (!guardCheckout()) return;
@@ -3626,11 +3620,10 @@ export default function LightCatalogDemo(): JSX.Element {
                 setCartItems([planAsCartItem]);
                 setPage("checkout");
               }}
-              className={`mt-6 w-full py-3 rounded-xl text-sm font-medium transition ${
-                plan.popular
+              className={`mt-6 w-full py-3 rounded-xl text-sm font-medium transition ${plan.popular
                   ? "bg-emerald-600 text-white hover:bg-emerald-700"
                   : "bg-slate-100 text-slate-700 hover:bg-slate-200"
-              }`}
+                }`}
             >
               Buy now
             </button>
@@ -3649,7 +3642,7 @@ export default function LightCatalogDemo(): JSX.Element {
   const Admin = () => {
     const adminNavigate = useNavigate();
     const adminLocation = useLocation();
-    
+
     // Get admin page from URL
     const getAdminPageFromPath = (pathname: string): string => {
       const match = pathname.match(/^\/admin\/(.+)$/);
@@ -3658,9 +3651,9 @@ export default function LightCatalogDemo(): JSX.Element {
       }
       return "dashboard";
     };
-    
+
     const [adminPage, setAdminPageState] = useState<string>(() => getAdminPageFromPath(adminLocation.pathname));
-    
+
     // Sync admin page with URL
     useEffect(() => {
       const newAdminPage = getAdminPageFromPath(adminLocation.pathname);
@@ -3668,7 +3661,7 @@ export default function LightCatalogDemo(): JSX.Element {
         setAdminPageState(newAdminPage);
       }
     }, [adminLocation.pathname]);
-    
+
     // Enhanced setAdminPage that also updates URL
     const setAdminPage = useCallback((newPage: string) => {
       setAdminPageState(newPage);
@@ -3687,7 +3680,7 @@ export default function LightCatalogDemo(): JSX.Element {
     }, [adminNavigate, adminLocation.pathname]);
     const [sidebarOpen, setSidebarOpen] = useState(true);
     const [subscriptionRefreshKey, setSubscriptionRefreshKey] = useState(0);
-    
+
     const [busy, setBusy] = useState(false);
     const [err, setErr] = useState<string | null>(null);
     const [ok, setOk] = useState<string | null>(null);
@@ -3798,12 +3791,12 @@ export default function LightCatalogDemo(): JSX.Element {
     const chatSendingRef = useRef(false);
     const chatSessionsBusyRef = useRef(false);
     const [chatStatusFilter, setChatStatusFilter] = useState<string>("");
-    
+
     // Sync ref with state
     useEffect(() => {
       chatSendingRef.current = chatSending;
     }, [chatSending]);
-    
+
     useEffect(() => {
       chatSessionsBusyRef.current = chatSessionsBusy;
     }, [chatSessionsBusy]);
@@ -3824,15 +3817,15 @@ export default function LightCatalogDemo(): JSX.Element {
     useEffect(() => {
       chatStatusFilterRef.current = chatStatusFilter;
     }, [chatStatusFilter]);
-    
+
     // Store refreshChatSessions in a ref to avoid dependency issues
     const refreshChatSessionsRef = useRef<(() => Promise<void>) | null>(null);
-    
+
     const refreshChatSessions = useCallback(async () => {
       if (!canView || adminPage !== "chat") return;
       // Prevent multiple simultaneous requests using ref
       if (chatSessionsBusyRef.current) return;
-      
+
       chatSessionsBusyRef.current = true;
       setChatSessionsBusy(true);
       setChatSessionsErr(null);
@@ -3849,7 +3842,7 @@ export default function LightCatalogDemo(): JSX.Element {
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [canView, adminPage]);
-    
+
     // Keep ref in sync
     useEffect(() => {
       refreshChatSessionsRef.current = refreshChatSessions;
@@ -3869,16 +3862,16 @@ export default function LightCatalogDemo(): JSX.Element {
 
     const sendChatMessage = useCallback(async () => {
       if (!selectedChatSession || !chatMessageInput.trim() || chatSending) return;
-      
+
       const messageText = chatMessageInput.trim();
       const sessionId = selectedChatSession.id;
       setChatSending(true);
       chatSendingRef.current = true;
       setChatSessionsErr(null);
-      
+
       // Clear input immediately for better UX
       setChatMessageInput("");
-      
+
       // Optimistically add message to UI
       const tempMessage = {
         id: `temp-${Date.now()}`,
@@ -3888,13 +3881,13 @@ export default function LightCatalogDemo(): JSX.Element {
         createdAt: new Date().toISOString(),
       };
       setChatMessages((prev) => [...prev, tempMessage]);
-      
+
       try {
         const response = await gatewayFetch(`/admin/chat/sessions/${sessionId}/message`, {
           method: "POST",
           body: JSON.stringify({ text: messageText }),
         });
-        
+
         // Only reload the current session messages, don't refresh the entire list
         // This prevents unnecessary re-renders and input field refresh
         try {
@@ -3920,10 +3913,10 @@ export default function LightCatalogDemo(): JSX.Element {
             });
           }
         }
-        
+
         // Silently refresh session list in background (don't await)
         const refreshFn = refreshChatSessionsRef.current;
-        if (refreshFn) refreshFn().catch(() => {});
+        if (refreshFn) refreshFn().catch(() => { });
       } catch (e: any) {
         // Remove optimistic message on error
         setChatMessages((prev) => prev.filter((m) => m.id !== tempMessage.id));
@@ -3962,7 +3955,7 @@ export default function LightCatalogDemo(): JSX.Element {
       if (!canView) return;
       // Prevent multiple simultaneous requests
       if (chatFAQsBusy) return;
-      
+
       setChatFAQsBusy(true);
       setChatFAQsErr(null);
       try {
@@ -4362,7 +4355,7 @@ export default function LightCatalogDemo(): JSX.Element {
           // If no updated item, update manually with new status
           setOrders((prev) => prev.map((x) => (x.id === orderId ? { ...x, status } : x)));
         }
-        
+
         // Refresh orders in background to get latest data (after a small delay to ensure modal is closed)
         setTimeout(() => {
           refreshOrders().catch(() => {
@@ -4397,7 +4390,7 @@ export default function LightCatalogDemo(): JSX.Element {
 
     useEffect(() => {
       if (canView && adminPage === "knowledge") {
-        refreshKb().catch(() => {});
+        refreshKb().catch(() => { });
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [canView, adminPage]);
@@ -4854,9 +4847,9 @@ export default function LightCatalogDemo(): JSX.Element {
         };
 
         return (
-          <div 
-            ref={setNodeRef} 
-            style={style} 
+          <div
+            ref={setNodeRef}
+            style={style}
             className="rounded-2xl border border-slate-200 bg-white p-4 group"
           >
             <div className="flex items-start justify-between gap-3">
@@ -5680,26 +5673,26 @@ export default function LightCatalogDemo(): JSX.Element {
     const ChatManagement = () => {
       // Initial load when chat page is opened
       const hasLoadedRef = useRef(false);
-      
+
       useEffect(() => {
         // Reset when leaving chat page first
         if (adminPage !== "chat") {
           hasLoadedRef.current = false;
           return;
         }
-        
+
         // Only load once when entering chat page
         if (!canView || hasLoadedRef.current) return;
-        
+
         hasLoadedRef.current = true;
         // Use the ref to avoid dependency issues
         const refreshFn = refreshChatSessionsRef.current;
         if (refreshFn) {
           refreshFn().catch((err) => {
-          console.error("Failed to load chat sessions:", err);
-          // Reset on error so it can retry
-          hasLoadedRef.current = false;
-        });
+            console.error("Failed to load chat sessions:", err);
+            // Reset on error so it can retry
+            hasLoadedRef.current = false;
+          });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [canView, adminPage]);
@@ -5707,26 +5700,26 @@ export default function LightCatalogDemo(): JSX.Element {
       // Auto-refresh only when on chat page and session is selected
       useEffect(() => {
         if (!canView || adminPage !== "chat" || !selectedChatSession) return;
-        
+
         let isMounted = true;
         const sessionId = selectedChatSession.id;
-        
+
         const interval = setInterval(() => {
           // Don't refresh if we're sending a message or component is unmounted
           if (!isMounted || adminPage !== "chat" || !sessionId || chatSendingRef.current) return;
-          
+
           // Only refresh messages, don't refresh the entire session list
           gatewayFetch(`/admin/chat/sessions/${sessionId}`, { method: "GET" })
             .then((json: any) => {
               if (!isMounted || !json?.item || json.item.id !== sessionId || chatSendingRef.current) return;
-              
+
               // Only update messages if they actually changed
-                setChatMessages((prev) => {
-                  const newMessages = json.item?.messages || [];
+              setChatMessages((prev) => {
+                const newMessages = json.item?.messages || [];
                 // Deep comparison to avoid unnecessary updates
                 if (prev.length !== newMessages.length) {
-                    return newMessages;
-                  }
+                  return newMessages;
+                }
                 // Check if any message changed
                 for (let i = 0; i < prev.length; i++) {
                   if (prev[i]?.id !== newMessages[i]?.id || prev[i]?.text !== newMessages[i]?.text) {
@@ -5735,10 +5728,10 @@ export default function LightCatalogDemo(): JSX.Element {
                 }
                 return prev; // No changes, return same reference
               });
-              
+
               // Only update session status if it actually changed (avoid unnecessary re-renders)
-                setSelectedChatSession((prev) => {
-                  if (!prev || prev.id !== sessionId) return prev;
+              setSelectedChatSession((prev) => {
+                if (!prev || prev.id !== sessionId) return prev;
                 // Compare status strings directly
                 const newStatus = json.item?.status;
                 if (newStatus && prev.status !== newStatus) {
@@ -5751,7 +5744,7 @@ export default function LightCatalogDemo(): JSX.Element {
               // Silently handle errors - don't spam console
             });
         }, 20000); // Increase to 20 seconds to reduce load even more
-        
+
         return () => {
           isMounted = false;
           clearInterval(interval);
@@ -5774,9 +5767,9 @@ export default function LightCatalogDemo(): JSX.Element {
 
       const parseDeviceInfo = (userAgent: string | null | undefined) => {
         if (!userAgent) return "Unknown";
-        
+
         const ua = userAgent.toLowerCase();
-        
+
         // Detect OS
         let os = "Unknown OS";
         if (ua.includes("windows")) os = "Windows";
@@ -5784,7 +5777,7 @@ export default function LightCatalogDemo(): JSX.Element {
         else if (ua.includes("linux")) os = "Linux";
         else if (ua.includes("android")) os = "Android";
         else if (ua.includes("ios") || ua.includes("iphone") || ua.includes("ipad")) os = "iOS";
-        
+
         // Detect Browser
         let browser = "Unknown Browser";
         if (ua.includes("chrome") && !ua.includes("edg")) browser = "Chrome";
@@ -5792,12 +5785,12 @@ export default function LightCatalogDemo(): JSX.Element {
         else if (ua.includes("safari") && !ua.includes("chrome")) browser = "Safari";
         else if (ua.includes("edg")) browser = "Edge";
         else if (ua.includes("opera") || ua.includes("opr")) browser = "Opera";
-        
+
         // Detect Device Type
         let deviceType = "Desktop";
         if (ua.includes("mobile")) deviceType = "Mobile";
         else if (ua.includes("tablet") || ua.includes("ipad")) deviceType = "Tablet";
-        
+
         return `${deviceType} · ${os} · ${browser}`;
       };
 
@@ -5808,7 +5801,7 @@ export default function LightCatalogDemo(): JSX.Element {
         const diffMins = Math.floor(diffMs / 60000);
         const diffHours = Math.floor(diffMs / 3600000);
         const diffDays = Math.floor(diffMs / 86400000);
-        
+
         if (diffMins < 1) return "Just now";
         if (diffMins < 60) return `${diffMins}m`;
         if (diffHours < 24) return `${diffHours}h`;
@@ -5846,12 +5839,12 @@ export default function LightCatalogDemo(): JSX.Element {
                 <option value="HUMAN">Human</option>
                 <option value="CLOSED">Closed</option>
               </select>
-              <button 
+              <button
                 onClick={() => {
                   const refreshFn = refreshChatSessionsRef.current;
                   if (refreshFn) refreshFn();
-                }} 
-                disabled={chatSessionsBusy} 
+                }}
+                disabled={chatSessionsBusy}
                 className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm hover:bg-slate-50"
               >
                 Refresh
@@ -5880,9 +5873,8 @@ export default function LightCatalogDemo(): JSX.Element {
                       <div
                         key={s.id}
                         onClick={() => loadChatSession(s.id)}
-                        className={`p-4 cursor-pointer transition hover:bg-slate-50 ${
-                          selectedChatSession?.id === s.id ? "bg-blue-50 border-l-4 border-blue-500" : ""
-                        }`}
+                        className={`p-4 cursor-pointer transition hover:bg-slate-50 ${selectedChatSession?.id === s.id ? "bg-blue-50 border-l-4 border-blue-500" : ""
+                          }`}
                       >
                         <div className="flex items-start gap-3">
                           <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white font-semibold text-sm">
@@ -5958,7 +5950,7 @@ export default function LightCatalogDemo(): JSX.Element {
                       )}
                     </div>
                   </div>
-                  
+
                   {selectedChatSession.status === "WAITING_FOR_HUMAN" && (
                     <div className="px-4 py-2 bg-yellow-50 border-b border-yellow-200 text-xs text-yellow-800">
                       The visitor went offline and will be notified about unread messages via email.
@@ -5973,13 +5965,12 @@ export default function LightCatalogDemo(): JSX.Element {
                         <div key={m.id} className={`flex ${m.role === "USER" ? "justify-end" : "justify-start"}`}>
                           <div className="flex flex-col max-w-[75%]">
                             <div
-                              className={`rounded-lg px-4 py-2 text-sm ${
-                                m.role === "USER"
+                              className={`rounded-lg px-4 py-2 text-sm ${m.role === "USER"
                                   ? "bg-emerald-600 text-white"
                                   : m.role === "ADMIN"
-                                  ? "bg-blue-600 text-white"
-                                  : "bg-white text-slate-900 border border-slate-200"
-                              }`}
+                                    ? "bg-blue-600 text-white"
+                                    : "bg-white text-slate-900 border border-slate-200"
+                                }`}
                             >
                               {m.text}
                             </div>
@@ -6219,10 +6210,10 @@ export default function LightCatalogDemo(): JSX.Element {
           <div className="mt-6 rounded-2xl border-2 border-emerald-200 bg-emerald-50 p-6">
             <div className="text-sm font-semibold text-slate-900 mb-3 flex items-center gap-2">
               <svg viewBox="0 0 24 24" className="w-5 h-5 text-emerald-600" fill="currentColor">
-                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
-                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
               </svg>
               Google Site Kit
             </div>
@@ -6235,14 +6226,14 @@ export default function LightCatalogDemo(): JSX.Element {
                 className="flex items-center gap-2 rounded-xl border border-emerald-200 bg-white px-4 py-3 text-sm font-medium text-slate-700 hover:bg-emerald-50 transition"
               >
                 <svg viewBox="0 0 24 24" className="w-5 h-5 text-emerald-600" fill="currentColor">
-                  <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                  <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                  <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                  <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                  <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                  <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                  <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
+                  <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
                 </svg>
                 <span>Google Analytics</span>
                 <svg viewBox="0 0 24 24" className="w-4 h-4 ml-auto" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M7 17L17 7M7 7h10v10"/>
+                  <path d="M7 17L17 7M7 7h10v10" />
                 </svg>
               </a>
               <a
@@ -6252,11 +6243,11 @@ export default function LightCatalogDemo(): JSX.Element {
                 className="flex items-center gap-2 rounded-xl border border-emerald-200 bg-white px-4 py-3 text-sm font-medium text-slate-700 hover:bg-emerald-50 transition"
               >
                 <svg viewBox="0 0 24 24" className="w-5 h-5 text-emerald-600" fill="currentColor">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
                 </svg>
                 <span>Tag Manager</span>
                 <svg viewBox="0 0 24 24" className="w-4 h-4 ml-auto" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M7 17L17 7M7 7h10v10"/>
+                  <path d="M7 17L17 7M7 7h10v10" />
                 </svg>
               </a>
               <a
@@ -6266,11 +6257,11 @@ export default function LightCatalogDemo(): JSX.Element {
                 className="flex items-center gap-2 rounded-xl border border-emerald-200 bg-white px-4 py-3 text-sm font-medium text-slate-700 hover:bg-emerald-50 transition"
               >
                 <svg viewBox="0 0 24 24" className="w-5 h-5 text-emerald-600" fill="currentColor">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
                 </svg>
                 <span>Search Console</span>
                 <svg viewBox="0 0 24 24" className="w-4 h-4 ml-auto" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M7 17L17 7M7 7h10v10"/>
+                  <path d="M7 17L17 7M7 7h10v10" />
                 </svg>
               </a>
             </div>
@@ -6329,39 +6320,39 @@ export default function LightCatalogDemo(): JSX.Element {
                 })
                 .slice(0, 50)
                 .map((u) => (
-                <div key={u.id} className="rounded-2xl border border-slate-200 bg-white p-4">
-                  <div className="text-sm font-semibold text-slate-900 truncate">{u.email}</div>
-                  <div className="mt-1 text-xs text-slate-500">Role: {u.role}</div>
-                  <div className="mt-1 text-xs text-slate-500">Created: {u.createdAt ? new Date(u.createdAt).toLocaleString() : "-"}</div>
-                  <div className="mt-1 flex items-center justify-between gap-3">
-                    <div className="text-xs text-slate-500 truncate">
-                      ID: {String(u.id || "").slice(0, 4)}...{String(u.id || "").slice(-4)}
-                    </div>
-                    <button
-                      type="button"
-                      onClick={async () => {
-                        const full = String(u.id || "");
-                        try {
-                          if (navigator?.clipboard?.writeText) await navigator.clipboard.writeText(full);
-                          else {
-                            const ta = document.createElement("textarea");
-                            ta.value = full;
-                            document.body.appendChild(ta);
-                            ta.select();
-                            document.execCommand("copy");
-                            ta.remove();
+                  <div key={u.id} className="rounded-2xl border border-slate-200 bg-white p-4">
+                    <div className="text-sm font-semibold text-slate-900 truncate">{u.email}</div>
+                    <div className="mt-1 text-xs text-slate-500">Role: {u.role}</div>
+                    <div className="mt-1 text-xs text-slate-500">Created: {u.createdAt ? new Date(u.createdAt).toLocaleString() : "-"}</div>
+                    <div className="mt-1 flex items-center justify-between gap-3">
+                      <div className="text-xs text-slate-500 truncate">
+                        ID: {String(u.id || "").slice(0, 4)}...{String(u.id || "").slice(-4)}
+                      </div>
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          const full = String(u.id || "");
+                          try {
+                            if (navigator?.clipboard?.writeText) await navigator.clipboard.writeText(full);
+                            else {
+                              const ta = document.createElement("textarea");
+                              ta.value = full;
+                              document.body.appendChild(ta);
+                              ta.select();
+                              document.execCommand("copy");
+                              ta.remove();
+                            }
+                          } catch {
+                            // ignore
                           }
-                        } catch {
-                          // ignore
-                        }
-                      }}
-                      className="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs hover:bg-slate-50"
-                    >
-                      Copy
-                    </button>
+                        }}
+                        className="rounded-xl border border-slate-200 bg-white px-3 py-1.5 text-xs hover:bg-slate-50"
+                      >
+                        Copy
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))
+                ))
             )}
           </div>
 
@@ -6393,14 +6384,16 @@ export default function LightCatalogDemo(): JSX.Element {
         setFraudEntriesBusy(true);
         setFraudEntriesErr(null);
         try {
-          await gatewayFetch("/admin/fraud/entries", { method: "POST", body: JSON.stringify({
-            name: String(fraudEntryNew?.name || "").trim(),
-            platform: String(fraudEntryNew?.platform || "Telegram"),
-            handle: String(fraudEntryNew?.handle || "").trim(),
-            note: String(fraudEntryNew?.note || ""),
-            details: String(fraudEntryNew?.details || ""),
-            evidenceUrl: String(fraudEntryNew?.evidenceUrl || ""),
-          }) });
+          await gatewayFetch("/admin/fraud/entries", {
+            method: "POST", body: JSON.stringify({
+              name: String(fraudEntryNew?.name || "").trim(),
+              platform: String(fraudEntryNew?.platform || "Telegram"),
+              handle: String(fraudEntryNew?.handle || "").trim(),
+              note: String(fraudEntryNew?.note || ""),
+              details: String(fraudEntryNew?.details || ""),
+              evidenceUrl: String(fraudEntryNew?.evidenceUrl || ""),
+            })
+          });
           setFraudEntryNew({ name: "", platform: "Telegram", handle: "", note: "", details: "", evidenceUrl: "" });
           await refreshFraudEntriesAdmin();
         } catch (e: any) {
@@ -6415,14 +6408,16 @@ export default function LightCatalogDemo(): JSX.Element {
         setFraudEntriesBusy(true);
         setFraudEntriesErr(null);
         try {
-          await gatewayFetch(`/admin/fraud/entries/${fraudEntryEditingId}`, { method: "PUT", body: JSON.stringify({
-            name: String(fraudEntryEdit?.name || "").trim(),
-            platform: String(fraudEntryEdit?.platform || "Telegram"),
-            handle: String(fraudEntryEdit?.handle || "").trim(),
-            note: String(fraudEntryEdit?.note || ""),
-            details: String(fraudEntryEdit?.details || ""),
-            evidenceUrl: String(fraudEntryEdit?.evidenceUrl || ""),
-          }) });
+          await gatewayFetch(`/admin/fraud/entries/${fraudEntryEditingId}`, {
+            method: "PUT", body: JSON.stringify({
+              name: String(fraudEntryEdit?.name || "").trim(),
+              platform: String(fraudEntryEdit?.platform || "Telegram"),
+              handle: String(fraudEntryEdit?.handle || "").trim(),
+              note: String(fraudEntryEdit?.note || ""),
+              details: String(fraudEntryEdit?.details || ""),
+              evidenceUrl: String(fraudEntryEdit?.evidenceUrl || ""),
+            })
+          });
           setFraudEntryEditingId(null);
           setFraudEntryEdit({ name: "", platform: "Telegram", handle: "", note: "", details: "", evidenceUrl: "" });
           await refreshFraudEntriesAdmin();
@@ -6700,7 +6695,7 @@ export default function LightCatalogDemo(): JSX.Element {
                           </a>
                         ) : null}
                         <div className="mt-2 text-xs text-slate-400">
-                          Email: {submission.email} | Verified: {submission.verifiedAt ? "Yes" : "No"} | 
+                          Email: {submission.email} | Verified: {submission.verifiedAt ? "Yes" : "No"} |
                           {submission.approvedAt ? " Approved" : submission.rejectedAt ? " Rejected" : " Pending"}
                         </div>
                       </div>
@@ -7099,7 +7094,7 @@ export default function LightCatalogDemo(): JSX.Element {
 
     const SpecialCrackManagement = () => {
       const [expandedId, setExpandedId] = useState<string | null>(null);
-      
+
       useEffect(() => {
         if (canView && adminPage === "special") {
           refreshSpecialSubmissionsAdmin().catch(() => {
@@ -7360,7 +7355,7 @@ export default function LightCatalogDemo(): JSX.Element {
                   if (flNewLabelRU.trim()) labels.RU = flNewLabelRU.trim();
                   if (flNewLabelIT.trim()) labels.IT = flNewLabelIT.trim();
                   if (flNewLabelAR.trim()) labels.AR = flNewLabelAR.trim();
-                  
+
                   try {
                     await gatewayFetch("/admin/footer-links", {
                       method: "POST",
@@ -7687,78 +7682,77 @@ export default function LightCatalogDemo(): JSX.Element {
       );
     };
 
-// Admin Sidebar Navigation
-const AdminSidebar = () => (
-  <div className={`${sidebarOpen ? "w-64" : "w-16"} bg-white border-r border-slate-200 h-screen fixed left-0 top-0 transition-all duration-300 z-40 flex flex-col shadow-sm overflow-y-auto`}>
-    <div className="p-4 border-b border-slate-200 flex items-center justify-between">
-      {sidebarOpen && <div className="text-base font-bold text-slate-900">Admin Panel</div>}
-      <button
-        type="button"
-        onClick={() => setSidebarOpen(!sidebarOpen)}
-        className="p-2 rounded-lg hover:bg-slate-100 transition"
-      >
-        <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d={sidebarOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
-        </svg>
-      </button>
-    </div>
-
-    <div className="flex-1 overflow-y-auto p-2">
-      <nav className="space-y-1">
-        {[
-          { id: "dashboard", label: "Dashboard", icon: "M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" },
-          { id: "categories", label: "Category", icon: "M10 4H4c-1.11 0-2 .89-2 2v12c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2h-8l-2-2z" },
-          { id: "products", label: "Products", icon: "M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z" },
-          { id: "featured-products", label: "Featured Products", icon: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" },
-          { id: "orders", label: "Orders", icon: "M7 18c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 16c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" },
-          { id: "users", label: "Users", icon: "M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.96.05 1.16.84 1.96 1.96 1.96 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" },
-          { id: "analytics", label: "Analytics", icon: "M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z" },
-          { id: "pricing", label: "Pricing Plans", icon: "M12 1.5c-3.59 0-6.5 2.01-6.5 4.5S8.41 10.5 12 10.5 18.5 8.49 18.5 6 15.59 1.5 12 1.5zm0 11c-4.14 0-7.5 2.01-7.5 4.5v.5c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V17c0-2.49-3.36-4.5-7.5-4.5z" },
-          { id: "coupons", label: "Coupons", icon: "M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z" },
-          { id: "banners", label: "Banners", icon: "M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" },
-          { id: "brands", label: "Brands", icon: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" },
-          { id: "fraud", label: "Fraud", icon: "M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" },
-          { id: "special", label: "Special Crack", icon: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" },
-          { id: "faqs", label: "FAQs", icon: "M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z" },
-          { id: "footer-links", label: "Footer Links", icon: "M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z" },
-          { id: "subscription", label: "Subscription", icon: "M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" },
-          { id: "testimonials", label: "Testimonials", icon: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" },
-          { id: "settings", label: "Settings", icon: "M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" },
-        ].map((item) => (
+    // Admin Sidebar Navigation
+    const AdminSidebar = () => (
+      <div className={`${sidebarOpen ? "w-64" : "w-16"} bg-white border-r border-slate-200 h-screen fixed left-0 top-0 transition-all duration-300 z-40 flex flex-col shadow-sm overflow-y-auto`}>
+        <div className="p-4 border-b border-slate-200 flex items-center justify-between">
+          {sidebarOpen && <div className="text-base font-bold text-slate-900">Admin Panel</div>}
           <button
-            key={item.id}
             type="button"
-            onClick={() => setAdminPage(item.id as any)}
-            className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg text-base transition ${
-              adminPage === item.id
-                ? "bg-emerald-50 text-emerald-700 font-medium"
-                : "text-slate-700 hover:bg-slate-50"
-            }`}
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="p-2 rounded-lg hover:bg-slate-100 transition"
           >
-            <svg viewBox="0 0 24 24" className="w-6 h-6" fill="currentColor">
-              <path d={item.icon} />
+            <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d={sidebarOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
             </svg>
-            {sidebarOpen && <span className="text-base">{item.label}</span>}
           </button>
-        ))}
-      </nav>
-    </div>
+        </div>
 
-    <div className="p-4 border-t border-slate-200">
-      <button
-        type="button"
-        onClick={() => setPage("home")}
-        className="w-full flex items-center gap-3 px-3 py-3 rounded-lg text-base text-slate-700 hover:bg-slate-50 transition"
-      >
-        <svg viewBox="0 0 24 24" className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-          <polyline points="9 22 9 12 15 12 15 22" />
-        </svg>
-        {sidebarOpen && <span className="text-base">Back to Site</span>}
-      </button>
-    </div>
-  </div>
-);
+        <div className="flex-1 overflow-y-auto p-2">
+          <nav className="space-y-1">
+            {[
+              { id: "dashboard", label: "Dashboard", icon: "M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z" },
+              { id: "categories", label: "Category", icon: "M10 4H4c-1.11 0-2 .89-2 2v12c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2h-8l-2-2z" },
+              { id: "products", label: "Products", icon: "M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 0 0-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z" },
+              { id: "featured-products", label: "Featured Products", icon: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" },
+              { id: "orders", label: "Orders", icon: "M7 18c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12L8.1 13h7.45c.75 0 1.41-.41 1.75-1.03L21.7 4H5.21l-.94-2H1zm16 16c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" },
+              { id: "users", label: "Users", icon: "M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.96.05 1.16.84 1.96 1.96 1.96 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" },
+              { id: "analytics", label: "Analytics", icon: "M3.5 18.49l6-6.01 4 4L22 6.92l-1.41-1.41-7.09 7.97-4-4L2 16.99z" },
+              { id: "pricing", label: "Pricing Plans", icon: "M12 1.5c-3.59 0-6.5 2.01-6.5 4.5S8.41 10.5 12 10.5 18.5 8.49 18.5 6 15.59 1.5 12 1.5zm0 11c-4.14 0-7.5 2.01-7.5 4.5v.5c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V17c0-2.49-3.36-4.5-7.5-4.5z" },
+              { id: "coupons", label: "Coupons", icon: "M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z" },
+              { id: "banners", label: "Banners", icon: "M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" },
+              { id: "brands", label: "Brands", icon: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" },
+              { id: "fraud", label: "Fraud", icon: "M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z" },
+              { id: "special", label: "Special Crack", icon: "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" },
+              { id: "faqs", label: "FAQs", icon: "M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z" },
+              { id: "footer-links", label: "Footer Links", icon: "M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z" },
+              { id: "subscription", label: "Subscription", icon: "M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.89 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" },
+              { id: "testimonials", label: "Testimonials", icon: "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" },
+              { id: "settings", label: "Settings", icon: "M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.07.62-.07.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" },
+            ].map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => setAdminPage(item.id as any)}
+                className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg text-base transition ${adminPage === item.id
+                    ? "bg-emerald-50 text-emerald-700 font-medium"
+                    : "text-slate-700 hover:bg-slate-50"
+                  }`}
+              >
+                <svg viewBox="0 0 24 24" className="w-6 h-6" fill="currentColor">
+                  <path d={item.icon} />
+                </svg>
+                {sidebarOpen && <span className="text-base">{item.label}</span>}
+              </button>
+            ))}
+          </nav>
+        </div>
+
+        <div className="p-4 border-t border-slate-200">
+          <button
+            type="button"
+            onClick={() => setPage("home")}
+            className="w-full flex items-center gap-3 px-3 py-3 rounded-lg text-base text-slate-700 hover:bg-slate-50 transition"
+          >
+            <svg viewBox="0 0 24 24" className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+              <polyline points="9 22 9 12 15 12 15 22" />
+            </svg>
+            {sidebarOpen && <span className="text-base">Back to Site</span>}
+          </button>
+        </div>
+      </div>
+    );
     // Admin Dashboard Page
     const AdminDashboard = () => (
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
@@ -8192,7 +8186,7 @@ const AdminSidebar = () => (
       </div>
     );
   };
-  
+
   const SubscriptionManagement = () => {
     const [items, setItems] = useState<{ id: number; email: string; createdAt: string }[]>([]);
     const [busy, setBusy] = useState(false);
@@ -8577,11 +8571,11 @@ const AdminSidebar = () => (
     const [testimonialBusy, setTestimonialBusy] = useState(false);
     const [testimonialErr, setTestimonialErr] = useState<string | null>(null);
     const [testimonialOk, setTestimonialOk] = useState<string | null>(null);
-    
+
     const [newT, setNewT] = useState({ name: "", role: "", company: "", rating: "", date: "", text: "" });
     const [newPhoto, setNewPhoto] = useState<File | null>(null);
     const [newLogo, setNewLogo] = useState<File | null>(null);
-    
+
     const [editingId, setEditingId] = useState<number | null>(null);
     const [editForm, setEditForm] = useState({ name: "", role: "", company: "", rating: "", date: "", text: "" });
     const [editPhoto, setEditPhoto] = useState<File | null>(null);
@@ -8840,7 +8834,7 @@ const AdminSidebar = () => (
     const [couponOk, setCouponOk] = useState<string | null>(null);
 
     const [couponProducts, setCouponProducts] = useState<{ id: number; title: string }[]>([]);
-    
+
     const [newCoupon, setNewCoupon] = useState({
       code: "",
       description: "",
@@ -9083,18 +9077,18 @@ const AdminSidebar = () => (
                       <div className="mt-2 text-xs text-slate-500">
                         {c.appliesToAll === false
                           ? (() => {
-                              const productIds = c.applicableProductIds || [];
-                              if (productIds.length === 0) {
-                                return "Applies to: (no products selected)";
-                              }
-                              const productNames = productIds
-                                .map((id) => {
-                                  const product = couponProducts.find((p) => p.id === id);
-                                  return product ? product.title : `Product #${id}`;
-                                })
-                                .filter(Boolean);
-                              return `Applies to: ${productNames.join(", ")}`;
-                            })()
+                            const productIds = c.applicableProductIds || [];
+                            if (productIds.length === 0) {
+                              return "Applies to: (no products selected)";
+                            }
+                            const productNames = productIds
+                              .map((id) => {
+                                const product = couponProducts.find((p) => p.id === id);
+                                return product ? product.title : `Product #${id}`;
+                              })
+                              .filter(Boolean);
+                            return `Applies to: ${productNames.join(", ")}`;
+                          })()
                           : "Applies to: All products"}
                       </div>
                       <div className="flex gap-3 mt-2 text-xs text-slate-500">
@@ -9614,7 +9608,7 @@ const AdminSidebar = () => (
     };
 
     const availablePages = ["home", "shop", "pricing", "fraud", "contact", "about", "faq", "special", "coupons", "refund", "privacy", "cookies", "disclaimer", "terms"];
-    
+
     const sortedNavItems = [...allNavItems].sort((a, b) => (Number(a.sortOrder || 0) - Number(b.sortOrder || 0)) || (Number(a.id || 0) - Number(b.id || 0)));
 
     return (
@@ -9660,19 +9654,19 @@ const AdminSidebar = () => (
                   <>
                     <div className="flex items-center gap-3">
                       <div className="flex flex-col gap-1">
-                        <button 
-                          type="button" 
-                          onClick={() => moveNav(item.id!, -1)} 
-                          disabled={navBusy || i === 0} 
+                        <button
+                          type="button"
+                          onClick={() => moveNav(item.id!, -1)}
+                          disabled={navBusy || i === 0}
                           className="px-2 py-1 text-xs border border-slate-300 rounded hover:bg-slate-50 disabled:opacity-50"
                           title="Move up"
                         >
                           ↑
                         </button>
-                        <button 
-                          type="button" 
-                          onClick={() => moveNav(item.id!, 1)} 
-                          disabled={navBusy || i === sortedNavItems.length - 1} 
+                        <button
+                          type="button"
+                          onClick={() => moveNav(item.id!, 1)}
+                          disabled={navBusy || i === sortedNavItems.length - 1}
                           className="px-2 py-1 text-xs border border-slate-300 rounded hover:bg-slate-50 disabled:opacity-50"
                           title="Move down"
                         >
@@ -9756,7 +9750,7 @@ const AdminSidebar = () => (
         }
         if (headerLogoFile) form.append("headerLogo", headerLogoFile);
         if (footerLogoFile) form.append("footerLogo", footerLogoFile);
-        
+
         // Add hero section fields
         form.append("heroKicker", heroKicker.trim());
         form.append("heroTitle", heroTitle.trim());
@@ -9767,7 +9761,7 @@ const AdminSidebar = () => (
         form.append("heroFeature1", heroFeature1.trim());
         form.append("heroFeature2", heroFeature2.trim());
         form.append("heroFeature3", heroFeature3.trim());
-        
+
         // Add topbar fields
         form.append("topbarEmail", topbarEmail.trim());
         form.append("topbarPhone", topbarPhone.trim());
@@ -9843,63 +9837,63 @@ const AdminSidebar = () => (
           <div className="mt-5 space-y-4">
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">Kicker / Tag (small text above title)</label>
-              <input 
-                value={heroKicker} 
-                onChange={(e) => setHeroKicker(e.target.value)} 
+              <input
+                value={heroKicker}
+                onChange={(e) => setHeroKicker(e.target.value)}
                 placeholder="e.g., Payment-free checkout · Email confirmation"
-                className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm" 
+                className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm"
               />
             </div>
 
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Main Title</label>
-                <input 
-                  value={heroTitle} 
-                  onChange={(e) => setHeroTitle(e.target.value)} 
+                <input
+                  value={heroTitle}
+                  onChange={(e) => setHeroTitle(e.target.value)}
                   placeholder="e.g., Clean, fast catalog platform"
-                  className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm" 
+                  className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm"
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Title Accent (highlighted part)</label>
-                <input 
-                  value={heroTitleAccent} 
-                  onChange={(e) => setHeroTitleAccent(e.target.value)} 
+                <input
+                  value={heroTitleAccent}
+                  onChange={(e) => setHeroTitleAccent(e.target.value)}
                   placeholder="e.g., with login & chatbot"
-                  className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm" 
+                  className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm"
                 />
               </div>
             </div>
 
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">Subtitle / Description</label>
-              <textarea 
-                value={heroSubtitle} 
-                onChange={(e) => setHeroSubtitle(e.target.value)} 
+              <textarea
+                value={heroSubtitle}
+                onChange={(e) => setHeroSubtitle(e.target.value)}
                 placeholder="e.g., Marketplace-like layout, premium light UI. Users request orders; your team confirms by email."
                 rows={3}
-                className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm" 
+                className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm"
               />
             </div>
 
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Browse Products Button Text</label>
-                <input 
-                  value={heroCtaBrowse} 
-                  onChange={(e) => setHeroCtaBrowse(e.target.value)} 
+                <input
+                  value={heroCtaBrowse}
+                  onChange={(e) => setHeroCtaBrowse(e.target.value)}
                   placeholder="e.g., Browse products"
-                  className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm" 
+                  className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm"
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">View Pricing Button Text</label>
-                <input 
-                  value={heroCtaPricing} 
-                  onChange={(e) => setHeroCtaPricing(e.target.value)} 
+                <input
+                  value={heroCtaPricing}
+                  onChange={(e) => setHeroCtaPricing(e.target.value)}
                   placeholder="e.g., View pricing"
-                  className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm" 
+                  className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm"
                 />
               </div>
             </div>
@@ -9909,29 +9903,29 @@ const AdminSidebar = () => (
               <div className="grid md:grid-cols-3 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-1">Feature 1</label>
-                  <input 
-                    value={heroFeature1} 
-                    onChange={(e) => setHeroFeature1(e.target.value)} 
+                  <input
+                    value={heroFeature1}
+                    onChange={(e) => setHeroFeature1(e.target.value)}
                     placeholder="e.g., Free Shipping worldwide"
-                    className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm" 
+                    className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm"
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-1">Feature 2</label>
-                  <input 
-                    value={heroFeature2} 
-                    onChange={(e) => setHeroFeature2(e.target.value)} 
+                  <input
+                    value={heroFeature2}
+                    onChange={(e) => setHeroFeature2(e.target.value)}
                     placeholder="e.g., Members gift weekly"
-                    className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm" 
+                    className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm"
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-1">Feature 3</label>
-                  <input 
-                    value={heroFeature3} 
-                    onChange={(e) => setHeroFeature3(e.target.value)} 
+                  <input
+                    value={heroFeature3}
+                    onChange={(e) => setHeroFeature3(e.target.value)}
                     placeholder="e.g., Friendly support 24/7"
-                    className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm" 
+                    className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm"
                   />
                 </div>
               </div>
@@ -9955,51 +9949,51 @@ const AdminSidebar = () => (
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Email Address</label>
-                <input 
-                  value={topbarEmail} 
-                  onChange={(e) => setTopbarEmail(e.target.value)} 
+                <input
+                  value={topbarEmail}
+                  onChange={(e) => setTopbarEmail(e.target.value)}
                   placeholder="e.g., support@ripcrack.net"
-                  className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm" 
+                  className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm"
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Phone Number</label>
-                <input 
-                  value={topbarPhone} 
-                  onChange={(e) => setTopbarPhone(e.target.value)} 
+                <input
+                  value={topbarPhone}
+                  onChange={(e) => setTopbarPhone(e.target.value)}
                   placeholder="e.g., +48 6388 1006"
-                  className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm" 
+                  className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm"
                 />
               </div>
             </div>
 
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">WhatsApp Number</label>
-              <input 
-                value={topbarWhatsApp} 
-                onChange={(e) => setTopbarWhatsApp(e.target.value)} 
+              <input
+                value={topbarWhatsApp}
+                onChange={(e) => setTopbarWhatsApp(e.target.value)}
                 placeholder="e.g., +48 6388 1006"
-                className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm" 
+                className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm"
               />
             </div>
 
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Left Message (e.g., "No online payment")</label>
-                <input 
-                  value={topbarNoPayment} 
-                  onChange={(e) => setTopbarNoPayment(e.target.value)} 
+                <input
+                  value={topbarNoPayment}
+                  onChange={(e) => setTopbarNoPayment(e.target.value)}
                   placeholder="e.g., No online payment"
-                  className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm" 
+                  className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm"
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Right Message (e.g., "Email confirmation")</label>
-                <input 
-                  value={topbarEmailConfirm} 
-                  onChange={(e) => setTopbarEmailConfirm(e.target.value)} 
+                <input
+                  value={topbarEmailConfirm}
+                  onChange={(e) => setTopbarEmailConfirm(e.target.value)}
                   placeholder="e.g., Email confirmation"
-                  className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm" 
+                  className="w-full rounded-xl border border-slate-200 px-4 py-3 text-sm"
                 />
               </div>
             </div>
@@ -10266,157 +10260,157 @@ const AdminSidebar = () => (
       const [openIdx, setOpenIdx] = useState<number | null>(null);
 
       const [fraudForm, setFraudForm] = useState({
-      name: "",
-      platform: "Telegram" as string,
-      handle: "",
-      details: "",
-      evidenceLink: "",
-    });
+        name: "",
+        platform: "Telegram" as string,
+        handle: "",
+        details: "",
+        evidenceLink: "",
+      });
 
-    const [fraudFormSent, setFraudFormSent] = useState(false);
-    const [fraudSubmitEmail, setFraudSubmitEmail] = useState("");
+      const [fraudFormSent, setFraudFormSent] = useState(false);
+      const [fraudSubmitEmail, setFraudSubmitEmail] = useState("");
 
-    const fraudEmailRef = useRef<HTMLInputElement | null>(null);
-    const fraudNameRef = useRef<HTMLInputElement | null>(null);
-    const fraudPlatformRef = useRef<HTMLSelectElement | null>(null);
-    const fraudHandleRef = useRef<HTMLInputElement | null>(null);
-    const fraudEvidenceRef = useRef<HTMLInputElement | null>(null);
-    const fraudDetailsRef = useRef<HTMLTextAreaElement | null>(null);
+      const fraudEmailRef = useRef<HTMLInputElement | null>(null);
+      const fraudNameRef = useRef<HTMLInputElement | null>(null);
+      const fraudPlatformRef = useRef<HTMLSelectElement | null>(null);
+      const fraudHandleRef = useRef<HTMLInputElement | null>(null);
+      const fraudEvidenceRef = useRef<HTMLInputElement | null>(null);
+      const fraudDetailsRef = useRef<HTMLTextAreaElement | null>(null);
 
-    const [fraudCaptchaToken, setFraudCaptchaToken] = useState("");
-    const [fraudCaptchaOpen, setFraudCaptchaOpen] = useState(false);
-    const fraudWidgetIdRef = useRef<any>(null);
-    const fraudFetchInFlightRef = useRef(false);
-    const fraudEntriesCooldownUntilRef = useRef(0);
-    const turnstileSiteKey = (import.meta as any)?.env?.VITE_TURNSTILE_SITE_KEY as string | undefined;
+      const [fraudCaptchaToken, setFraudCaptchaToken] = useState("");
+      const [fraudCaptchaOpen, setFraudCaptchaOpen] = useState(false);
+      const fraudWidgetIdRef = useRef<any>(null);
+      const fraudFetchInFlightRef = useRef(false);
+      const fraudEntriesCooldownUntilRef = useRef(0);
+      const turnstileSiteKey = (import.meta as any)?.env?.VITE_TURNSTILE_SITE_KEY as string | undefined;
 
-    useEffect(() => {
-      if (!turnstileSiteKey) return;
-      if (typeof window === "undefined") return;
+      useEffect(() => {
+        if (!turnstileSiteKey) return;
+        if (typeof window === "undefined") return;
 
-      const w = window as any;
-      if (w.turnstile) return;
+        const w = window as any;
+        if (w.turnstile) return;
 
-      const existing = document.querySelector('script[src^="https://challenges.cloudflare.com/turnstile/v0/api.js"]');
-      if (existing) return;
+        const existing = document.querySelector('script[src^="https://challenges.cloudflare.com/turnstile/v0/api.js"]');
+        if (existing) return;
 
-      const s = document.createElement("script");
-      s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
-      s.async = true;
-      s.defer = true;
-      document.head.appendChild(s);
-    }, [turnstileSiteKey]);
+        const s = document.createElement("script");
+        s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+        s.async = true;
+        s.defer = true;
+        document.head.appendChild(s);
+      }, [turnstileSiteKey]);
 
-    useEffect(() => {
-      if (!turnstileSiteKey) return;
-      if (typeof window === "undefined") return;
-      const w = window as any;
+      useEffect(() => {
+        if (!turnstileSiteKey) return;
+        if (typeof window === "undefined") return;
+        const w = window as any;
 
-      let cancelled = false;
-      const ensureRendered = async () => {
-        for (let i = 0; i < 80; i++) {
-          if (cancelled) return;
-          if (w.turnstile && typeof w.turnstile.render === "function") break;
-          await new Promise((r) => setTimeout(r, 100));
-        }
-        if (cancelled) return;
-        if (!w.turnstile || typeof w.turnstile.render !== "function") return;
-
-        const el = document.getElementById("turnstile-fraud");
-        if (el && fraudCaptchaOpen && !el.getAttribute("data-rendered")) {
-          const id = w.turnstile.render(el, {
-            sitekey: turnstileSiteKey,
-            callback: (token: string) => {
-              setFraudCaptchaToken(token);
-              setFraudCaptchaOpen(false);
-            },
-            "expired-callback": () => setFraudCaptchaToken(""),
-            "error-callback": () => setFraudCaptchaToken(""),
-          });
-          fraudWidgetIdRef.current = id;
-          el.setAttribute("data-rendered", "1");
-        }
-      };
-
-      ensureRendered();
-      return () => {
-        cancelled = true;
-      };
-    }, [turnstileSiteKey, fraudCaptchaOpen]);
-
-    const resetFraudCaptcha = () => {
-      setFraudCaptchaToken("");
-      const w = window as any;
-      if (w?.turnstile && fraudWidgetIdRef.current != null) {
-        try {
-          const widgetId = fraudWidgetIdRef.current;
-          if (widgetId != null) {
-            w.turnstile.reset(widgetId);
+        let cancelled = false;
+        const ensureRendered = async () => {
+          for (let i = 0; i < 80; i++) {
+            if (cancelled) return;
+            if (w.turnstile && typeof w.turnstile.render === "function") break;
+            await new Promise((r) => setTimeout(r, 100));
           }
-        } catch (err) {
-          // Silently ignore if widget is not available
-          console.debug("Turnstile reset failed:", err);
+          if (cancelled) return;
+          if (!w.turnstile || typeof w.turnstile.render !== "function") return;
+
+          const el = document.getElementById("turnstile-fraud");
+          if (el && fraudCaptchaOpen && !el.getAttribute("data-rendered")) {
+            const id = w.turnstile.render(el, {
+              sitekey: turnstileSiteKey,
+              callback: (token: string) => {
+                setFraudCaptchaToken(token);
+                setFraudCaptchaOpen(false);
+              },
+              "expired-callback": () => setFraudCaptchaToken(""),
+              "error-callback": () => setFraudCaptchaToken(""),
+            });
+            fraudWidgetIdRef.current = id;
+            el.setAttribute("data-rendered", "1");
+          }
+        };
+
+        ensureRendered();
+        return () => {
+          cancelled = true;
+        };
+      }, [turnstileSiteKey, fraudCaptchaOpen]);
+
+      const resetFraudCaptcha = () => {
+        setFraudCaptchaToken("");
+        const w = window as any;
+        if (w?.turnstile && fraudWidgetIdRef.current != null) {
+          try {
+            const widgetId = fraudWidgetIdRef.current;
+            if (widgetId != null) {
+              w.turnstile.reset(widgetId);
+            }
+          } catch (err) {
+            // Silently ignore if widget is not available
+            console.debug("Turnstile reset failed:", err);
+          }
         }
-      }
-      const el = document.getElementById("turnstile-fraud");
-      if (el) el.removeAttribute("data-rendered");
-    };
+        const el = document.getElementById("turnstile-fraud");
+        if (el) el.removeAttribute("data-rendered");
+      };
 
-    const startFraudResendCooldown = (seconds: number) => {
-      const s = Math.max(0, Math.floor(seconds));
-      setFraudResendLeft(s);
-      if (typeof window !== "undefined") window.localStorage.setItem("fraudResendUntil", String(Date.now() + s * 1000));
-    };
+      const startFraudResendCooldown = (seconds: number) => {
+        const s = Math.max(0, Math.floor(seconds));
+        setFraudResendLeft(s);
+        if (typeof window !== "undefined") window.localStorage.setItem("fraudResendUntil", String(Date.now() + s * 1000));
+      };
 
-    useEffect(() => {
-      if (!fraudVerifyOpen) return;
-      if (fraudResendLeft <= 0) return;
-      const t = window.setInterval(() => {
-        setFraudResendLeft((x) => (x > 0 ? x - 1 : 0));
-      }, 1000);
-      return () => window.clearInterval(t);
-    }, [fraudVerifyOpen, fraudResendLeft]);
+      useEffect(() => {
+        if (!fraudVerifyOpen) return;
+        if (fraudResendLeft <= 0) return;
+        const t = window.setInterval(() => {
+          setFraudResendLeft((x) => (x > 0 ? x - 1 : 0));
+        }, 1000);
+        return () => window.clearInterval(t);
+      }, [fraudVerifyOpen, fraudResendLeft]);
 
-    useEffect(() => {
-      if (typeof window === "undefined") return;
-      const pendingRaw = window.localStorage.getItem("pendingFraudVerify") || "";
-      if (!pendingRaw) return;
-      try {
-        const pending = JSON.parse(pendingRaw) as any;
-        const email = String(pending?.email || "").trim().toLowerCase();
-        const submissionId = String(pending?.submissionId || "").trim();
-        if (!email || !submissionId) return;
-        if (fraudVerifyCode.trim()) return;
-        setFraudVerifyEmail(email);
-        setFraudVerifySubmissionId(submissionId);
-        // Don't reset code while user is typing
-        setFraudVerifyCode((prev) => prev);
-        setFraudVerifyErr(null);
-        setFraudVerifyOk("Please enter the 6-digit code sent to your email.");
-        if (!fraudVerifyOpen) setFraudVerifyOpen(true);
+      useEffect(() => {
+        if (typeof window === "undefined") return;
+        const pendingRaw = window.localStorage.getItem("pendingFraudVerify") || "";
+        if (!pendingRaw) return;
+        try {
+          const pending = JSON.parse(pendingRaw) as any;
+          const email = String(pending?.email || "").trim().toLowerCase();
+          const submissionId = String(pending?.submissionId || "").trim();
+          if (!email || !submissionId) return;
+          if (fraudVerifyCode.trim()) return;
+          setFraudVerifyEmail(email);
+          setFraudVerifySubmissionId(submissionId);
+          // Don't reset code while user is typing
+          setFraudVerifyCode((prev) => prev);
+          setFraudVerifyErr(null);
+          setFraudVerifyOk("Please enter the 6-digit code sent to your email.");
+          if (!fraudVerifyOpen) setFraudVerifyOpen(true);
 
-        const untilRaw = window.localStorage.getItem("fraudResendUntil") || "";
-        const until = Number(untilRaw || 0);
-        const left = until > 0 ? Math.ceil((until - Date.now()) / 1000) : 0;
-        setFraudResendLeft(left > 0 ? left : 0);
-      } catch {
-        // ignore
-      }
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+          const untilRaw = window.localStorage.getItem("fraudResendUntil") || "";
+          const until = Number(untilRaw || 0);
+          const left = until > 0 ? Math.ceil((until - Date.now()) / 1000) : 0;
+          setFraudResendLeft(left > 0 ? left : 0);
+        } catch {
+          // ignore
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, []);
 
-    const refreshFraudEntries = async () => {
-      if (Date.now() < fraudEntriesCooldownUntilRef.current) return;
-      if (fraudFetchInFlightRef.current) return;
-      fraudFetchInFlightRef.current = true;
-      setFraudBusy(true);
-      setFraudErr(null);
-      try {
-        const json = await gatewayFetch("/fraud/entries", { method: "GET" });
-        const items = (json?.items || []) as any[];
-        setFraudItems(
-          Array.isArray(items)
-            ? items.map((x) => ({
+      const refreshFraudEntries = async () => {
+        if (Date.now() < fraudEntriesCooldownUntilRef.current) return;
+        if (fraudFetchInFlightRef.current) return;
+        fraudFetchInFlightRef.current = true;
+        setFraudBusy(true);
+        setFraudErr(null);
+        try {
+          const json = await gatewayFetch("/fraud/entries", { method: "GET" });
+          const items = (json?.items || []) as any[];
+          setFraudItems(
+            Array.isArray(items)
+              ? items.map((x) => ({
                 id: Number(x?.id || 0),
                 name: String(x?.name || ""),
                 handle: String(x?.handle || ""),
@@ -10426,201 +10420,201 @@ const AdminSidebar = () => (
                 evidenceUrl: String(x?.evidenceUrl || ""),
                 reports: Number(x?.reports || 0),
               }))
-            : []
-        );
-      } catch (e: any) {
-        if (e?.status === 429) {
-          const waitMs = Number.isFinite(e?.retryAfterMs) ? Number(e.retryAfterMs) : 30_000;
-          fraudEntriesCooldownUntilRef.current = Date.now() + Math.max(0, waitMs);
+              : []
+          );
+        } catch (e: any) {
+          if (e?.status === 429) {
+            const waitMs = Number.isFinite(e?.retryAfterMs) ? Number(e.retryAfterMs) : 30_000;
+            fraudEntriesCooldownUntilRef.current = Date.now() + Math.max(0, waitMs);
+          }
+          setFraudErr(e?.message || "Failed to load fraud list");
+        } finally {
+          setFraudBusy(false);
+          fraudFetchInFlightRef.current = false;
         }
-        setFraudErr(e?.message || "Failed to load fraud list");
-      } finally {
-        setFraudBusy(false);
-        fraudFetchInFlightRef.current = false;
-      }
-    };
-
-    const doFraudVerify = async () => {
-      setFraudVerifyBusy(true);
-      setFraudVerifyErr(null);
-      setFraudVerifyOk(null);
-      try {
-        const email = fraudVerifyEmail.trim().toLowerCase();
-        const code = fraudVerifyCode.trim();
-        const submissionId = String(fraudVerifySubmissionId || "").trim();
-        if (!email || code.length !== 6 || !submissionId) throw new Error("Missing verification data");
-
-        await gatewayFetch("/fraud/verify", {
-          method: "POST",
-          body: JSON.stringify({ email, code, submissionId }),
-        });
-
-        setFraudVerifyOk("Verified. Thank you!");
-        if (typeof window !== "undefined") window.localStorage.removeItem("pendingFraudVerify");
-        setFraudFormSent(true);
-        setFraudForm({ name: "", platform: "Telegram", handle: "", details: "", evidenceLink: "" });
-        setFraudSubmitEmail("");
-        setTimeout(() => {
-          setFraudVerifyOpen(false);
-          setFraudVerifyOk(null);
-          setFraudVerifyCode("");
-          setFraudVerifySubmissionId("");
-          setFraudFormSent(false);
-        }, 2500);
-      } catch (e: any) {
-        setFraudVerifyErr(e?.message || "Failed to verify");
-      } finally {
-        setFraudVerifyBusy(false);
-      }
-    };
-
-    const doFraudResend = async () => {
-      if (fraudResendLeft > 0) return;
-      setFraudVerifyBusy(true);
-      setFraudVerifyErr(null);
-      setFraudVerifyOk(null);
-      try {
-        const email = fraudVerifyEmail.trim().toLowerCase();
-        const submissionId = String(fraudVerifySubmissionId || "").trim();
-        if (!email || !submissionId) throw new Error("Missing verification data");
-
-        await gatewayFetch("/fraud/resend", {
-          method: "POST",
-          body: JSON.stringify({ email, submissionId, captchaToken: fraudCaptchaToken }),
-        });
-
-        setFraudVerifyOk("A new code was sent.");
-        startFraudResendCooldown(30);
-      } catch (e: any) {
-        setFraudVerifyErr(e?.message || "Failed to resend");
-      } finally {
-        setFraudVerifyBusy(false);
-      }
-    };
-
-    useEffect(() => {
-      if (fraudHasFetchedRef.current) return;
-      fraudHasFetchedRef.current = true;
-      const loadData = async () => {
-        await refreshFraudEntries();
       };
-      loadData();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
-    const canReportId = (id: number) => {
-      if (typeof window === "undefined") return true;
-      return window.localStorage.getItem(`fraudReported:${id}`) !== "1";
-    };
-
-    const reportExisting = async (id: number) => {
-      if (!canReportId(id)) return;
-      try {
-        const deviceId = getDeviceId();
-        const json = await gatewayFetch(`/fraud/entries/${id}/report`, {
-          method: "POST",
-          body: JSON.stringify({ deviceId }),
-        });
-        const updated = json?.item;
-        if (updated?.id) {
-          setFraudItems((prev) => prev.map((it) => (it.id === Number(updated.id) ? { ...it, reports: Number(updated.reports || it.reports) } : it)));
-        } else {
-          setFraudItems((prev) => prev.map((it) => (it.id === id ? { ...it, reports: it.reports + 1 } : it)));
-        }
-        if (typeof window !== "undefined") window.localStorage.setItem(`fraudReported:${id}`, "1");
-      } catch (e: any) {
-        const msg = String(e?.message || "");
-        if (msg.toLowerCase().includes("already reported")) {
-          if (typeof window !== "undefined") window.localStorage.setItem(`fraudReported:${id}`, "1");
-          return;
-        }
-        alert(msg || "Failed to report");
-      }
-    };
-
-    const submitNewFraud = async () => {
-      const emailRaw = String(fraudSubmitEmail || "");
-      const nameRaw = String(fraudForm?.name || "");
-      const platformRaw = String(fraudForm?.platform || "Telegram");
-      const handleRaw = String(fraudForm?.handle || "");
-      const detailsRaw = String(fraudForm?.details || "");
-      const evidenceRaw = String(fraudForm?.evidenceLink || "");
-
-      if (!emailRaw.trim() || !nameRaw.trim() || !handleRaw.trim() || !detailsRaw.trim()) {
-        alert("Please fill: Email, Name, Handle/Contact, Details");
-        return;
-      }
-
-      if (turnstileSiteKey && !fraudCaptchaToken) {
-        resetFraudCaptcha();
-        setFraudCaptchaOpen(true);
-        return;
-      }
-
-      setFraudBusy(true);
-      setFraudErr(null);
-      try {
-        const email = emailRaw.trim().toLowerCase();
-        const json = await gatewayFetch("/fraud/submit", {
-          method: "POST",
-          body: JSON.stringify({
-            email,
-            name: nameRaw.trim(),
-            platform: platformRaw.trim(),
-            handle: handleRaw.trim(),
-            details: detailsRaw.trim(),
-            evidenceUrl: evidenceRaw.trim(),
-            captchaToken: fraudCaptchaToken,
-          }),
-        });
-
-        const submissionId = String(json?.submissionId || "").trim();
-        if (!submissionId) throw new Error("Submit failed");
-
-        if (typeof window !== "undefined") {
-          window.localStorage.setItem("pendingFraudVerify", JSON.stringify({ email, submissionId }));
-        }
-        setFraudVerifyEmail(email);
-        setFraudVerifySubmissionId(submissionId);
-        setFraudVerifyCode("");
+      const doFraudVerify = async () => {
+        setFraudVerifyBusy(true);
         setFraudVerifyErr(null);
         setFraudVerifyOk(null);
-        setFraudVerifyOpen(true);
-        startFraudResendCooldown(30);
+        try {
+          const email = fraudVerifyEmail.trim().toLowerCase();
+          const code = fraudVerifyCode.trim();
+          const submissionId = String(fraudVerifySubmissionId || "").trim();
+          if (!email || code.length !== 6 || !submissionId) throw new Error("Missing verification data");
 
-        resetFraudCaptcha();
-      } catch (e: any) {
-        setFraudErr(e?.message || "Failed to submit");
-      } finally {
-        setFraudBusy(false);
-      }
-    };
+          await gatewayFetch("/fraud/verify", {
+            method: "POST",
+            body: JSON.stringify({ email, code, submissionId }),
+          });
 
-    return (
-      <section className="max-w-7xl mx-auto px-6 py-12">
-        <div className="mb-6 rounded-2xl border border-rose-200 bg-rose-50 p-5">
-          <div className="flex items-start gap-4">
-            <div className="h-11 w-11 rounded-2xl bg-rose-100 border border-rose-200 flex items-center justify-center shrink-0">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5 text-rose-700">
-                <path d="M12 2l7 4v6c0 5-3 9-7 10-4-1-7-5-7-10V6l7-4z" />
-                <path d="M12 8v5" />
-                <path d="M12 17h.01" />
-              </svg>
-            </div>
-            <div>
-              <div className="text-lg font-semibold text-rose-900">Attention: Fraud &amp; Impersonators</div>
-              <div className="mt-1 text-sm text-rose-800 leading-relaxed">
-                We <span className="font-semibold">NEVER</span> ask for crypto payments via Telegram or WhatsApp. All official orders are processed via email invoicing.
-                <br />
-                Below is a list of known impersonators reported by our community.
+          setFraudVerifyOk("Verified. Thank you!");
+          if (typeof window !== "undefined") window.localStorage.removeItem("pendingFraudVerify");
+          setFraudFormSent(true);
+          setFraudForm({ name: "", platform: "Telegram", handle: "", details: "", evidenceLink: "" });
+          setFraudSubmitEmail("");
+          setTimeout(() => {
+            setFraudVerifyOpen(false);
+            setFraudVerifyOk(null);
+            setFraudVerifyCode("");
+            setFraudVerifySubmissionId("");
+            setFraudFormSent(false);
+          }, 2500);
+        } catch (e: any) {
+          setFraudVerifyErr(e?.message || "Failed to verify");
+        } finally {
+          setFraudVerifyBusy(false);
+        }
+      };
+
+      const doFraudResend = async () => {
+        if (fraudResendLeft > 0) return;
+        setFraudVerifyBusy(true);
+        setFraudVerifyErr(null);
+        setFraudVerifyOk(null);
+        try {
+          const email = fraudVerifyEmail.trim().toLowerCase();
+          const submissionId = String(fraudVerifySubmissionId || "").trim();
+          if (!email || !submissionId) throw new Error("Missing verification data");
+
+          await gatewayFetch("/fraud/resend", {
+            method: "POST",
+            body: JSON.stringify({ email, submissionId, captchaToken: fraudCaptchaToken }),
+          });
+
+          setFraudVerifyOk("A new code was sent.");
+          startFraudResendCooldown(30);
+        } catch (e: any) {
+          setFraudVerifyErr(e?.message || "Failed to resend");
+        } finally {
+          setFraudVerifyBusy(false);
+        }
+      };
+
+      useEffect(() => {
+        if (fraudHasFetchedRef.current) return;
+        fraudHasFetchedRef.current = true;
+        const loadData = async () => {
+          await refreshFraudEntries();
+        };
+        loadData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, []);
+
+      const canReportId = (id: number) => {
+        if (typeof window === "undefined") return true;
+        return window.localStorage.getItem(`fraudReported:${id}`) !== "1";
+      };
+
+      const reportExisting = async (id: number) => {
+        if (!canReportId(id)) return;
+        try {
+          const deviceId = getDeviceId();
+          const json = await gatewayFetch(`/fraud/entries/${id}/report`, {
+            method: "POST",
+            body: JSON.stringify({ deviceId }),
+          });
+          const updated = json?.item;
+          if (updated?.id) {
+            setFraudItems((prev) => prev.map((it) => (it.id === Number(updated.id) ? { ...it, reports: Number(updated.reports || it.reports) } : it)));
+          } else {
+            setFraudItems((prev) => prev.map((it) => (it.id === id ? { ...it, reports: it.reports + 1 } : it)));
+          }
+          if (typeof window !== "undefined") window.localStorage.setItem(`fraudReported:${id}`, "1");
+        } catch (e: any) {
+          const msg = String(e?.message || "");
+          if (msg.toLowerCase().includes("already reported")) {
+            if (typeof window !== "undefined") window.localStorage.setItem(`fraudReported:${id}`, "1");
+            return;
+          }
+          alert(msg || "Failed to report");
+        }
+      };
+
+      const submitNewFraud = async () => {
+        const emailRaw = String(fraudSubmitEmail || "");
+        const nameRaw = String(fraudForm?.name || "");
+        const platformRaw = String(fraudForm?.platform || "Telegram");
+        const handleRaw = String(fraudForm?.handle || "");
+        const detailsRaw = String(fraudForm?.details || "");
+        const evidenceRaw = String(fraudForm?.evidenceLink || "");
+
+        if (!emailRaw.trim() || !nameRaw.trim() || !handleRaw.trim() || !detailsRaw.trim()) {
+          alert("Please fill: Email, Name, Handle/Contact, Details");
+          return;
+        }
+
+        if (turnstileSiteKey && !fraudCaptchaToken) {
+          resetFraudCaptcha();
+          setFraudCaptchaOpen(true);
+          return;
+        }
+
+        setFraudBusy(true);
+        setFraudErr(null);
+        try {
+          const email = emailRaw.trim().toLowerCase();
+          const json = await gatewayFetch("/fraud/submit", {
+            method: "POST",
+            body: JSON.stringify({
+              email,
+              name: nameRaw.trim(),
+              platform: platformRaw.trim(),
+              handle: handleRaw.trim(),
+              details: detailsRaw.trim(),
+              evidenceUrl: evidenceRaw.trim(),
+              captchaToken: fraudCaptchaToken,
+            }),
+          });
+
+          const submissionId = String(json?.submissionId || "").trim();
+          if (!submissionId) throw new Error("Submit failed");
+
+          if (typeof window !== "undefined") {
+            window.localStorage.setItem("pendingFraudVerify", JSON.stringify({ email, submissionId }));
+          }
+          setFraudVerifyEmail(email);
+          setFraudVerifySubmissionId(submissionId);
+          setFraudVerifyCode("");
+          setFraudVerifyErr(null);
+          setFraudVerifyOk(null);
+          setFraudVerifyOpen(true);
+          startFraudResendCooldown(30);
+
+          resetFraudCaptcha();
+        } catch (e: any) {
+          setFraudErr(e?.message || "Failed to submit");
+        } finally {
+          setFraudBusy(false);
+        }
+      };
+
+      return (
+        <section className="max-w-7xl mx-auto px-6 py-12">
+          <div className="mb-6 rounded-2xl border border-rose-200 bg-rose-50 p-5">
+            <div className="flex items-start gap-4">
+              <div className="h-11 w-11 rounded-2xl bg-rose-100 border border-rose-200 flex items-center justify-center shrink-0">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5 text-rose-700">
+                  <path d="M12 2l7 4v6c0 5-3 9-7 10-4-1-7-5-7-10V6l7-4z" />
+                  <path d="M12 8v5" />
+                  <path d="M12 17h.01" />
+                </svg>
+              </div>
+              <div>
+                <div className="text-lg font-semibold text-rose-900">Attention: Fraud &amp; Impersonators</div>
+                <div className="mt-1 text-sm text-rose-800 leading-relaxed">
+                  We <span className="font-semibold">NEVER</span> ask for crypto payments via Telegram or WhatsApp. All official orders are processed via email invoicing.
+                  <br />
+                  Below is a list of known impersonators reported by our community.
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <SectionTitle title="Attention Fraud" subtitle="If you see fraud accounts, report them here." />
+          <SectionTitle title="Attention Fraud" subtitle="If you see fraud accounts, report them here." />
 
-        {fraudVerifyOpen && typeof document !== "undefined"
-          ? createPortal(
+          {fraudVerifyOpen && typeof document !== "undefined"
+            ? createPortal(
               <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/50 p-4" role="dialog" aria-modal="true" aria-labelledby="fraud-verify-title">
                 <div className="w-full max-w-md rounded-2xl bg-white border border-slate-200 shadow-2xl p-6" onClick={(e) => e.stopPropagation()}>
                   <div className="flex items-start justify-between gap-3 mb-1">
@@ -10678,132 +10672,132 @@ const AdminSidebar = () => (
               </div>,
               document.body
             )
-          : null}
+            : null}
 
-        <Card className="p-6 mb-8">
-          <div className="flex items-start justify-between gap-4 flex-wrap">
-            <div>
-              <div className="text-lg font-semibold text-slate-900">Report a fraud account</div>
-              <div className="text-sm text-slate-600 mt-1">Fill the form — we will review and add it to the list. Email verification is required after you submit.</div>
-            </div>
-            {fraudFormSent ? <div className="text-sm bg-emerald-50 text-emerald-800 border border-emerald-100 px-3 py-2 rounded-xl">Submitted ✅</div> : null}
-          </div>
-
-          <div className="mt-5 grid md:grid-cols-2 gap-4">
-            <input value={fraudSubmitEmail} onChange={(e) => setFraudSubmitEmail(e.target.value)} placeholder="Your email" className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm" />
-            <input value={fraudForm.name} onChange={(e) => setFraudForm((s) => ({ ...s, name: e.target.value }))} placeholder="Fraud name / title" className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm" />
-            <select value={fraudForm.platform} onChange={(e) => setFraudForm((s) => ({ ...s, platform: e.target.value }))} className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm">
-              <option value="Telegram">Telegram</option>
-              <option value="WhatsApp">WhatsApp</option>
-              <option value="Email">Email</option>
-              <option value="Other">Other</option>
-            </select>
-            <input value={fraudForm.handle} onChange={(e) => setFraudForm((s) => ({ ...s, handle: e.target.value }))} placeholder="@username / phone / email" className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm" />
-            <input value={fraudForm.evidenceLink} onChange={(e) => setFraudForm((s) => ({ ...s, evidenceLink: e.target.value }))} placeholder="Evidence link (optional)" className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm" />
-          </div>
-
-          <textarea value={fraudForm.details} onChange={(e) => setFraudForm((s) => ({ ...s, details: e.target.value }))} placeholder="Details: what happened, date, payment request, links, screenshots..." className="mt-4 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm min-h-[110px]" />
-
-          <div className="mt-4 flex gap-2">
-            <button type="button" onClick={submitNewFraud} className="rounded-xl bg-emerald-600 text-white px-5 py-3 text-sm hover:bg-emerald-700">
-              Submit report
-            </button>
-            <button type="button" onClick={() => setFraudForm({ name: "", platform: "Telegram", handle: "", details: "", evidenceLink: "" })} className="rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm hover:bg-slate-50">
-              Clear
-            </button>
-          </div>
-        </Card>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          {fraudItems.map((x) => {
-            const isOpen = openIdx === x.id;
-            const initials = x.name
-              .split(" ")
-              .slice(0, 2)
-              .map((p) => p[0]?.toUpperCase())
-              .join("");
-
-            const canReport = canReportId(x.id);
-
-            return (
-              <div key={x.id} role="button" tabIndex={0} onClick={() => setOpenIdx((cur) => (cur === x.id ? null : x.id))} className="text-left cursor-pointer">
-                <Card className="p-5 hover:shadow-md transition">
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="flex items-start gap-3">
-                      <div className="h-11 w-11 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-sm font-semibold text-slate-600">{initials}</div>
-                      <div>
-                        <div className="text-sm font-semibold text-slate-900">{x.name}</div>
-                        <div className="mt-1 text-sm text-slate-600">
-                          <span className="font-medium text-slate-700">{x.platform}:</span> {x.handle}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="text-xs bg-red-50 text-red-700 border border-red-100 px-2 py-1 rounded-full">Fraud</div>
-                  </div>
-
-                  <div className="mt-3 text-sm text-slate-600 line-clamp-2">{x.note}</div>
-                  <div className="mt-3 text-xs text-slate-500">🚩 Reported by {x.reports} people</div>
-
-                  <div className="mt-4 flex items-center justify-between">
-                    <div className="text-xs text-slate-500">Tap to {isOpen ? "hide" : "view"} details</div>
-                    <div className="text-slate-400 text-lg">{isOpen ? "–" : "+"}</div>
-                  </div>
-
-                  {isOpen ? (
-                    <div className="mt-4">
-                      <div className="rounded-2xl bg-slate-50 border border-slate-200 p-4">
-                        <div className="text-sm font-semibold text-slate-900">Details</div>
-                        <div className="mt-2 text-sm text-slate-600 leading-relaxed whitespace-pre-wrap">{(x.details || x.note || "").trim() || "—"}</div>
-
-                        {x.evidenceUrl ? (
-                          <a
-                            href={x.evidenceUrl}
-                            target="_blank"
-                            rel="noreferrer"
-                            onClick={(e) => e.stopPropagation()}
-                            className="mt-3 inline-block text-sm text-slate-900 underline"
-                          >
-                            Evidence
-                          </a>
-                        ) : null}
-
-                        <div className="mt-4 flex gap-2">
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              navigator.clipboard?.writeText(`${x.platform}: ${x.handle}`);
-                            }}
-                            className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm hover:bg-slate-50"
-                          >
-                            Copy
-                          </button>
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              reportExisting(x.id);
-                            }}
-                            disabled={!canReport}
-                            className={`rounded-xl px-4 py-2 text-sm ${canReport ? "bg-slate-900 text-white hover:bg-black" : "bg-slate-200 text-slate-500 cursor-not-allowed"}`}
-                          >
-                            {canReport ? "Report" : "Reported"}
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ) : null}
-                </Card>
+          <Card className="p-6 mb-8">
+            <div className="flex items-start justify-between gap-4 flex-wrap">
+              <div>
+                <div className="text-lg font-semibold text-slate-900">Report a fraud account</div>
+                <div className="text-sm text-slate-600 mt-1">Fill the form — we will review and add it to the list. Email verification is required after you submit.</div>
               </div>
-            );
-          })}
-        </div>
-      </section>
-    );
+              {fraudFormSent ? <div className="text-sm bg-emerald-50 text-emerald-800 border border-emerald-100 px-3 py-2 rounded-xl">Submitted ✅</div> : null}
+            </div>
+
+            <div className="mt-5 grid md:grid-cols-2 gap-4">
+              <input value={fraudSubmitEmail} onChange={(e) => setFraudSubmitEmail(e.target.value)} placeholder="Your email" className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm" />
+              <input value={fraudForm.name} onChange={(e) => setFraudForm((s) => ({ ...s, name: e.target.value }))} placeholder="Fraud name / title" className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm" />
+              <select value={fraudForm.platform} onChange={(e) => setFraudForm((s) => ({ ...s, platform: e.target.value }))} className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm">
+                <option value="Telegram">Telegram</option>
+                <option value="WhatsApp">WhatsApp</option>
+                <option value="Email">Email</option>
+                <option value="Other">Other</option>
+              </select>
+              <input value={fraudForm.handle} onChange={(e) => setFraudForm((s) => ({ ...s, handle: e.target.value }))} placeholder="@username / phone / email" className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm" />
+              <input value={fraudForm.evidenceLink} onChange={(e) => setFraudForm((s) => ({ ...s, evidenceLink: e.target.value }))} placeholder="Evidence link (optional)" className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm" />
+            </div>
+
+            <textarea value={fraudForm.details} onChange={(e) => setFraudForm((s) => ({ ...s, details: e.target.value }))} placeholder="Details: what happened, date, payment request, links, screenshots..." className="mt-4 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm min-h-[110px]" />
+
+            <div className="mt-4 flex gap-2">
+              <button type="button" onClick={submitNewFraud} className="rounded-xl bg-emerald-600 text-white px-5 py-3 text-sm hover:bg-emerald-700">
+                Submit report
+              </button>
+              <button type="button" onClick={() => setFraudForm({ name: "", platform: "Telegram", handle: "", details: "", evidenceLink: "" })} className="rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm hover:bg-slate-50">
+                Clear
+              </button>
+            </div>
+          </Card>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {fraudItems.map((x) => {
+              const isOpen = openIdx === x.id;
+              const initials = x.name
+                .split(" ")
+                .slice(0, 2)
+                .map((p) => p[0]?.toUpperCase())
+                .join("");
+
+              const canReport = canReportId(x.id);
+
+              return (
+                <div key={x.id} role="button" tabIndex={0} onClick={() => setOpenIdx((cur) => (cur === x.id ? null : x.id))} className="text-left cursor-pointer">
+                  <Card className="p-5 hover:shadow-md transition">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="flex items-start gap-3">
+                        <div className="h-11 w-11 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center text-sm font-semibold text-slate-600">{initials}</div>
+                        <div>
+                          <div className="text-sm font-semibold text-slate-900">{x.name}</div>
+                          <div className="mt-1 text-sm text-slate-600">
+                            <span className="font-medium text-slate-700">{x.platform}:</span> {x.handle}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="text-xs bg-red-50 text-red-700 border border-red-100 px-2 py-1 rounded-full">Fraud</div>
+                    </div>
+
+                    <div className="mt-3 text-sm text-slate-600 line-clamp-2">{x.note}</div>
+                    <div className="mt-3 text-xs text-slate-500">🚩 Reported by {x.reports} people</div>
+
+                    <div className="mt-4 flex items-center justify-between">
+                      <div className="text-xs text-slate-500">Tap to {isOpen ? "hide" : "view"} details</div>
+                      <div className="text-slate-400 text-lg">{isOpen ? "–" : "+"}</div>
+                    </div>
+
+                    {isOpen ? (
+                      <div className="mt-4">
+                        <div className="rounded-2xl bg-slate-50 border border-slate-200 p-4">
+                          <div className="text-sm font-semibold text-slate-900">Details</div>
+                          <div className="mt-2 text-sm text-slate-600 leading-relaxed whitespace-pre-wrap">{(x.details || x.note || "").trim() || "—"}</div>
+
+                          {x.evidenceUrl ? (
+                            <a
+                              href={x.evidenceUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              onClick={(e) => e.stopPropagation()}
+                              className="mt-3 inline-block text-sm text-slate-900 underline"
+                            >
+                              Evidence
+                            </a>
+                          ) : null}
+
+                          <div className="mt-4 flex gap-2">
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                navigator.clipboard?.writeText(`${x.platform}: ${x.handle}`);
+                              }}
+                              className="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm hover:bg-slate-50"
+                            >
+                              Copy
+                            </button>
+                            <button
+                              type="button"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                reportExisting(x.id);
+                              }}
+                              disabled={!canReport}
+                              className={`rounded-xl px-4 py-2 text-sm ${canReport ? "bg-slate-900 text-white hover:bg-black" : "bg-slate-200 text-slate-500 cursor-not-allowed"}`}
+                            >
+                              {canReport ? "Report" : "Reported"}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ) : null}
+                  </Card>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      );
     };
   }, []);
 
-   const Account = () => {
+  const Account = () => {
     // Persist form state to prevent loss on re-renders
     const [loginEmail, setLoginEmail] = useState(() => {
       if (typeof window !== "undefined") {
@@ -11521,13 +11515,12 @@ const AdminSidebar = () => (
 
                   {myOrdersErr ? <div className="mt-3 text-sm text-red-700">{myOrdersErr}</div> : null}
                   {myOrdersBusy ? <div className="mt-3 text-sm text-slate-600">Loading…</div> : null}
-                  
+
                   {cancelNotification ? (
-                    <div className={`mt-3 text-sm ${
-                      cancelNotification.type === "success" 
-                        ? "text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-2 rounded-xl" 
+                    <div className={`mt-3 text-sm ${cancelNotification.type === "success"
+                        ? "text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-2 rounded-xl"
                         : "text-red-700 bg-red-50 border border-red-200 px-3 py-2 rounded-xl"
-                    }`}>
+                      }`}>
                       {cancelNotification.message}
                     </div>
                   ) : null}
@@ -11563,15 +11556,14 @@ const AdminSidebar = () => (
                           </div>
                           <div className="shrink-0">
                             <div
-                              className={`text-xs font-medium px-2 py-1 rounded-full border ${
-                                o.status === "CONFIRMED"
+                              className={`text-xs font-medium px-2 py-1 rounded-full border ${o.status === "CONFIRMED"
                                   ? "bg-emerald-50 text-emerald-800 border-emerald-100"
                                   : o.status === "REJECTED"
                                     ? "bg-red-50 text-red-800 border-red-100"
                                     : o.status === "CANCELED"
                                       ? "bg-orange-50 text-orange-800 border-orange-100"
                                       : "bg-slate-100 text-slate-700 border-slate-200"
-                              }`}
+                                }`}
                             >
                               {o.status || "REQUESTED"}
                             </div>
@@ -11752,9 +11744,9 @@ const AdminSidebar = () => (
                     <div className="mt-3 grid gap-2">
                       {rpErr ? <div className="text-sm text-red-700">{rpErr}</div> : null}
                       {rpOk ? <div className="text-sm text-emerald-700">{rpOk}</div> : null}
-                      <input 
-                        value={rpToken} 
-                        onChange={(e) => setRpToken(e.target.value)} 
+                      <input
+                        value={rpToken}
+                        onChange={(e) => setRpToken(e.target.value)}
                         onKeyDown={(e) => {
                           if (e.key === "Enter") {
                             e.preventDefault();
@@ -11762,8 +11754,8 @@ const AdminSidebar = () => (
                             doResetPassword();
                           }
                         }}
-                        placeholder="Reset code" 
-                        className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm" 
+                        placeholder="Reset code"
+                        className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm"
                       />
                       <div className="relative">
                         <input
@@ -11849,121 +11841,121 @@ const AdminSidebar = () => (
           </Card>
 
           {!me && (
-          <Card className="p-6">
-            <div className="text-xl font-semibold text-slate-900">Create account</div>
-            <div className="text-sm text-slate-600 mt-1">Register to save your order history.</div>
-            <form
-              className="mt-5 space-y-3"
-              onSubmit={(e) => {
-                e.preventDefault();
-                doRegister();
-              }}
-            >
-              <input value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Full name" className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm" />
-              <input value={regEmail} onChange={(e) => setRegEmail(e.target.value)} placeholder="Email" className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm" />
-              <div className="relative">
-                <input
-                  value={regPassword}
-                  onChange={(e) => setRegPassword(e.target.value)}
-                  type={regPwVisible ? "text" : "password"}
-                  placeholder="Password"
-                  className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 pr-12 text-sm"
-                />
-                <button
-                  type="button"
-                  onClick={() => setRegPwVisible((v) => !v)}
-                  className="absolute inset-y-0 right-0 flex items-center justify-center px-4 text-slate-500 hover:text-slate-700"
-                  aria-label={regPwVisible ? "Hide password" : "Show password"}
-                >
-                  {regPwVisible ? (
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M3 3l18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                      <path d="M10.6 10.6a3 3 0 004.2 4.2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                      <path d="M9.9 5.1A10.9 10.9 0 0112 5c6 0 10 7 10 7a17.4 17.4 0 01-3.2 3.9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                      <path d="M6.3 6.3C3.9 8.3 2 12 2 12s4 7 10 7c1.4 0 2.7-.3 3.8-.7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-                    </svg>
-                  ) : (
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z" stroke="currentColor" strokeWidth="2" />
-                      <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="2" />
-                    </svg>
-                  )}
-                </button>
-              </div>
-
-              {turnstileSiteKey ? (
-                <div className="flex items-center justify-between gap-3">
-                  {regCaptchaToken ? (
-                    <div className="text-xs bg-emerald-50 text-emerald-800 border border-emerald-100 px-2 py-1 rounded-full">Verified ✅</div>
-                  ) : (
-                    <div className="text-xs text-slate-500">Verification required</div>
-                  )}
-
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        resetRegCaptcha();
-                        setRegCaptchaOpen(true);
-                      }}
-                      className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs hover:bg-slate-50"
-                    >
-                      {regCaptchaToken ? "Re-verify" : "Verify"}
-                    </button>
-                    {regCaptchaToken ? (
-                      <button
-                        type="button"
-                        onClick={resetRegCaptcha}
-                        className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs hover:bg-slate-50"
-                      >
-                        Reset
-                      </button>
-                    ) : null}
-                  </div>
-                </div>
-              ) : (
-                null
-              )}
-
-              {turnstileSiteKey ? (
-                <div
-                  style={{ display: regCaptchaOpen ? "flex" : "none" }}
-                  className="fixed inset-0 z-50 items-center justify-center bg-black/40 p-4"
-                  onClick={() => setRegCaptchaOpen(false)}
-                >
-                  <div
-                    className="w-full max-w-md rounded-2xl bg-white border border-slate-200 p-4"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <div>
-                        <div className="text-sm font-semibold text-slate-900">Verify you are human</div>
-                        <div className="text-xs text-slate-600 mt-1">Complete the challenge to continue.</div>
-                      </div>
-                      <button
-                        type="button"
-                        onClick={() => setRegCaptchaOpen(false)}
-                        className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs hover:bg-slate-50"
-                      >
-                        Close
-                      </button>
-                    </div>
-                    <div className="mt-4">
-                      <div id="turnstile-register" className="w-full" />
-                    </div>
-                  </div>
-                </div>
-              ) : null}
-
-              <button
-                type="submit"
-                disabled={authBusy || (turnstileSiteKey ? !regCaptchaToken : false)}
-                className="w-full rounded-xl bg-emerald-600 text-white py-3 text-sm hover:bg-emerald-700 disabled:opacity-60"
+            <Card className="p-6">
+              <div className="text-xl font-semibold text-slate-900">Create account</div>
+              <div className="text-sm text-slate-600 mt-1">Register to save your order history.</div>
+              <form
+                className="mt-5 space-y-3"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  doRegister();
+                }}
               >
-                Create account
-              </button>
-            </form>
-          </Card>
+                <input value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Full name" className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm" />
+                <input value={regEmail} onChange={(e) => setRegEmail(e.target.value)} placeholder="Email" className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm" />
+                <div className="relative">
+                  <input
+                    value={regPassword}
+                    onChange={(e) => setRegPassword(e.target.value)}
+                    type={regPwVisible ? "text" : "password"}
+                    placeholder="Password"
+                    className="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 pr-12 text-sm"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setRegPwVisible((v) => !v)}
+                    className="absolute inset-y-0 right-0 flex items-center justify-center px-4 text-slate-500 hover:text-slate-700"
+                    aria-label={regPwVisible ? "Hide password" : "Show password"}
+                  >
+                    {regPwVisible ? (
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 3l18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                        <path d="M10.6 10.6a3 3 0 004.2 4.2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                        <path d="M9.9 5.1A10.9 10.9 0 0112 5c6 0 10 7 10 7a17.4 17.4 0 01-3.2 3.9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                        <path d="M6.3 6.3C3.9 8.3 2 12 2 12s4 7 10 7c1.4 0 2.7-.3 3.8-.7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                      </svg>
+                    ) : (
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z" stroke="currentColor" strokeWidth="2" />
+                        <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="2" />
+                      </svg>
+                    )}
+                  </button>
+                </div>
+
+                {turnstileSiteKey ? (
+                  <div className="flex items-center justify-between gap-3">
+                    {regCaptchaToken ? (
+                      <div className="text-xs bg-emerald-50 text-emerald-800 border border-emerald-100 px-2 py-1 rounded-full">Verified ✅</div>
+                    ) : (
+                      <div className="text-xs text-slate-500">Verification required</div>
+                    )}
+
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          resetRegCaptcha();
+                          setRegCaptchaOpen(true);
+                        }}
+                        className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs hover:bg-slate-50"
+                      >
+                        {regCaptchaToken ? "Re-verify" : "Verify"}
+                      </button>
+                      {regCaptchaToken ? (
+                        <button
+                          type="button"
+                          onClick={resetRegCaptcha}
+                          className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs hover:bg-slate-50"
+                        >
+                          Reset
+                        </button>
+                      ) : null}
+                    </div>
+                  </div>
+                ) : (
+                  null
+                )}
+
+                {turnstileSiteKey ? (
+                  <div
+                    style={{ display: regCaptchaOpen ? "flex" : "none" }}
+                    className="fixed inset-0 z-50 items-center justify-center bg-black/40 p-4"
+                    onClick={() => setRegCaptchaOpen(false)}
+                  >
+                    <div
+                      className="w-full max-w-md rounded-2xl bg-white border border-slate-200 p-4"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <div className="text-sm font-semibold text-slate-900">Verify you are human</div>
+                          <div className="text-xs text-slate-600 mt-1">Complete the challenge to continue.</div>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => setRegCaptchaOpen(false)}
+                          className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs hover:bg-slate-50"
+                        >
+                          Close
+                        </button>
+                      </div>
+                      <div className="mt-4">
+                        <div id="turnstile-register" className="w-full" />
+                      </div>
+                    </div>
+                  </div>
+                ) : null}
+
+                <button
+                  type="submit"
+                  disabled={authBusy || (turnstileSiteKey ? !regCaptchaToken : false)}
+                  className="w-full rounded-xl bg-emerald-600 text-white py-3 text-sm hover:bg-emerald-700 disabled:opacity-60"
+                >
+                  Create account
+                </button>
+              </form>
+            </Card>
           )}
         </div>
       </section>
@@ -12125,7 +12117,7 @@ const AdminSidebar = () => (
     const [busy, setBusy] = useState(false);
     const [sent, setSent] = useState(false);
     const [err, setErr] = useState<string | null>(null);
-    
+
     // Local selectedType for checkout to prevent form reset
     // Initialize from cart items if available
     const [checkoutSelectedType, setCheckoutSelectedType] = useState<"Personal" | "Business">(() => {
@@ -12149,7 +12141,7 @@ const AdminSidebar = () => (
     const [acceptedTerms, setAcceptedTerms] = useState(false);
     const [acceptedPrivacy, setAcceptedPrivacy] = useState(false);
     const [acceptedRefund, setAcceptedRefund] = useState(false);
-    
+
     // Coupon state
     const [couponCode, setCouponCode] = useState("");
     const [appliedCoupon, setAppliedCoupon] = useState<CouponT | null>(null);
@@ -12213,7 +12205,7 @@ const AdminSidebar = () => (
         };
       });
     }, [cartItems, checkoutSelectedType, products]);
-    
+
     // Calculate discount from coupon (only on eligible products when coupon is product-specific)
     const discountAmount = useMemo(() => {
       if (!appliedCoupon || checkoutLines.length === 0) return 0;
@@ -12225,8 +12217,8 @@ const AdminSidebar = () => (
       const eligibleSubtotal = appliedCoupon.appliesToAll
         ? fullSubtotal
         : checkoutLines
-            .filter((it) => applicableIds.includes(it.productId))
-            .reduce((acc, it) => acc + it.subtotal, 0);
+          .filter((it) => applicableIds.includes(it.productId))
+          .reduce((acc, it) => acc + it.subtotal, 0);
 
       if (eligibleSubtotal <= 0) return 0;
 
@@ -12238,7 +12230,7 @@ const AdminSidebar = () => (
       }
       return Math.min(appliedCoupon.discountValue, eligibleSubtotal);
     }, [appliedCoupon, checkoutLines]);
-    
+
     const checkoutTotal = checkoutLines.reduce((acc, it) => acc + it.subtotal, 0) - discountAmount;
 
     const applyCoupon = async () => {
@@ -12373,7 +12365,7 @@ const AdminSidebar = () => (
           setSent(true);
           // Show success alert
           alert("Place order successfully");
-          window.scrollTo({top:0, behavior:"smooth"});
+          window.scrollTo({ top: 0, behavior: "smooth" });
           setErr(null);
 
           // Clear form fields
@@ -12390,7 +12382,7 @@ const AdminSidebar = () => (
           setAcceptedTerms(false);
           setAcceptedPrivacy(false);
           setAcceptedRefund(false);
-          
+
           // Clear cart after successful order
           clearCart();
         } else {
@@ -12546,7 +12538,7 @@ const AdminSidebar = () => (
               {/* Legal Agreements */}
               <div className="mt-6 p-4 bg-slate-50 rounded-xl space-y-3">
                 <div className="text-sm font-medium text-slate-700 mb-3">Legal Agreements</div>
-                
+
                 <label className="flex items-start gap-3 cursor-pointer">
                   <input
                     type="checkbox"
@@ -12654,7 +12646,7 @@ const AdminSidebar = () => (
                         <div className="flex justify-between text-sm text-emerald-600">
                           <span>
                             Discount ({appliedCoupon.code})
-                            {appliedCoupon.discountType === "PERCENTAGE" 
+                            {appliedCoupon.discountType === "PERCENTAGE"
                               ? ` -${appliedCoupon.discountValue}%`
                               : ` -${formatMoney(appliedCoupon.discountValue)}`}
                           </span>
@@ -12677,9 +12669,9 @@ const AdminSidebar = () => (
                     {checkoutLines.length === 0
                       ? checkoutSelectedType
                       : (() => {
-                          const types = [...new Set(checkoutLines.map((l) => l.productType || "Personal"))];
-                          return types.length === 1 ? types[0] : "Mixed (see per item)";
-                        })()}
+                        const types = [...new Set(checkoutLines.map((l) => l.productType || "Personal"))];
+                        return types.length === 1 ? types[0] : "Mixed (see per item)";
+                      })()}
                   </span>
                 </div>
                 <div className="flex justify-between">
@@ -12688,12 +12680,12 @@ const AdminSidebar = () => (
                     {checkoutLines.length === 0
                       ? (checkoutSelectedType === "Business" ? "This license is for multiple PCs." : "License for one PC.")
                       : (() => {
-                          const types = [...new Set(checkoutLines.map((l) => l.productType || "Personal"))];
-                          if (types.length === 1) {
-                            return types[0] === "Business" ? "This license is for multiple PCs." : "License for one PC.";
-                          }
-                          return "See license type per item above.";
-                        })()}
+                        const types = [...new Set(checkoutLines.map((l) => l.productType || "Personal"))];
+                        if (types.length === 1) {
+                          return types[0] === "Business" ? "This license is for multiple PCs." : "License for one PC.";
+                        }
+                        return "See license type per item above.";
+                      })()}
                   </span>
                 </div>
                 <div className="h-px bg-slate-200" />
@@ -12986,9 +12978,8 @@ const AdminSidebar = () => (
 
             {me?.role === "ADMIN" || me?.role === "AGENT" ? (
               <div
-                className={`mt-6 rounded-2xl border border-dashed overflow-hidden h-56 flex items-center justify-center transition ${
-                  supportDragOver ? "border-emerald-500 bg-emerald-50" : "border-slate-200 bg-gradient-to-br from-slate-100 to-slate-200"
-                }`}
+                className={`mt-6 rounded-2xl border border-dashed overflow-hidden h-56 flex items-center justify-center transition ${supportDragOver ? "border-emerald-500 bg-emerald-50" : "border-slate-200 bg-gradient-to-br from-slate-100 to-slate-200"
+                  }`}
                 onDragOver={(e) => {
                   e.preventDefault();
                   setSupportDragOver(true);
@@ -13252,11 +13243,10 @@ const AdminSidebar = () => (
                     setPage(item.page as Page);
                     setMobileMenuOpen(false);
                   }}
-                  className={`block w-full text-left px-3 py-2 rounded-xl text-sm transition ${
-                    page === item.page
+                  className={`block w-full text-left px-3 py-2 rounded-xl text-sm transition ${page === item.page
                       ? "bg-emerald-50 text-emerald-700 font-medium"
                       : "text-slate-700 hover:bg-slate-50"
-                  }`}
+                    }`}
                 >
                   {item.label}
                 </button>
@@ -13308,190 +13298,190 @@ const AdminSidebar = () => (
 
       {/* Footer */}
       {page !== "admin" && (
-      <footer className="bg-white border-t border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
-          <div>
-            <div className="flex items-center gap-2">
-              {siteSettings.footerLogo ? (
-                <img src={siteSettings.footerLogo} alt={siteSettings.siteName} className="h-8 max-h-8 w-auto max-w-[120px] object-contain" />
-              ) : (
-                <div className="h-8 w-8 rounded-xl bg-emerald-600" />
-              )}
-              <div className="text-lg font-semibold text-slate-900">{siteSettings.siteName}</div>
-            </div>
-            <div className="mt-5 space-y-2 text-sm text-slate-600">
+        <footer className="bg-white border-t border-slate-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 sm:py-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
+            <div>
               <div className="flex items-center gap-2">
-                <svg viewBox="0 0 24 24" className="h-4 w-4 text-emerald-700" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 21s7-4.5 7-11a7 7 0 1 0-14 0c0 6.5 7 11 7 11z" />
-                  <circle cx="12" cy="10" r="2.5" />
-                </svg>
-                <span>Smolki Stanisława 29, Warszawa 01-101 Poland</span>
+                {siteSettings.footerLogo ? (
+                  <img src={siteSettings.footerLogo} alt={siteSettings.siteName} className="h-8 max-h-8 w-auto max-w-[120px] object-contain" />
+                ) : (
+                  <div className="h-8 w-8 rounded-xl bg-emerald-600" />
+                )}
+                <div className="text-lg font-semibold text-slate-900">{siteSettings.siteName}</div>
               </div>
+              <div className="mt-5 space-y-2 text-sm text-slate-600">
+                <div className="flex items-center gap-2">
+                  <svg viewBox="0 0 24 24" className="h-4 w-4 text-emerald-700" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 21s7-4.5 7-11a7 7 0 1 0-14 0c0 6.5 7 11 7 11z" />
+                    <circle cx="12" cy="10" r="2.5" />
+                  </svg>
+                  <span>Smolki Stanisława 29, Warszawa 01-101 Poland</span>
+                </div>
 
-              <a href="mailto:support@ripcrack.net" className="flex items-center gap-2 hover:text-slate-900">
-                <svg viewBox="0 0 24 24" className="h-4 w-4 text-emerald-700" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M4 4h16v16H4z" />
-                  <path d="m22 6-10 7L2 6" />
-                </svg>
-                <span>support@ripcrack.net</span>
-              </a>
+                <a href="mailto:support@ripcrack.net" className="flex items-center gap-2 hover:text-slate-900">
+                  <svg viewBox="0 0 24 24" className="h-4 w-4 text-emerald-700" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M4 4h16v16H4z" />
+                    <path d="m22 6-10 7L2 6" />
+                  </svg>
+                  <span>support@ripcrack.net</span>
+                </a>
 
-              <a href="https://wa.me/4863881006" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-slate-900">
-                <svg viewBox="0 0 24 24" className="h-4 w-4 text-emerald-700" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 21a9 9 0 1 0-7.65-4.27L3 21l4.27-1.35A8.96 8.96 0 0 0 12 21z" />
-                  <path d="M9.5 10.5c.6 1.6 2.4 3.4 4 4" />
-                  <path d="M13.8 14.2l1.2-.4c.4-.1.8 0 1.1.3l1 1" />
-                </svg>
-                <span>WhatsApp Support: +48 6388 1006</span>
-              </a>
+                <a href="https://wa.me/4863881006" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-slate-900">
+                  <svg viewBox="0 0 24 24" className="h-4 w-4 text-emerald-700" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 21a9 9 0 1 0-7.65-4.27L3 21l4.27-1.35A8.96 8.96 0 0 0 12 21z" />
+                    <path d="M9.5 10.5c.6 1.6 2.4 3.4 4 4" />
+                    <path d="M13.8 14.2l1.2-.4c.4-.1.8 0 1.1.3l1 1" />
+                  </svg>
+                  <span>WhatsApp Support: +48 6388 1006</span>
+                </a>
 
-              <div className="flex items-center gap-2">
-                <svg viewBox="0 0 24 24" className="h-4 w-4 text-emerald-700" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z" />
-                </svg>
-                <span>WeChat: RipCrack</span>
+                <div className="flex items-center gap-2">
+                  <svg viewBox="0 0 24 24" className="h-4 w-4 text-emerald-700" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z" />
+                  </svg>
+                  <span>WeChat: RipCrack</span>
+                </div>
+
+                <a href="https://t.me/ripcrack" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-slate-900">
+                  <svg viewBox="0 0 24 24" className="h-4 w-4 text-emerald-700" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 5 10 12" />
+                    <path d="m21 5-7 16-4-9-8-3z" />
+                  </svg>
+                  <span>Telegram: @ripcrack</span>
+                </a>
+
+                <a href="https://ripcrack.net/contact" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-slate-900">
+                  <svg viewBox="0 0 24 24" className="h-4 w-4 text-emerald-700" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M10 13a5 5 0 0 1 0-7l.5-.5a5 5 0 0 1 7 7L17 13" />
+                    <path d="M14 11a5 5 0 0 1 0 7l-.5.5a5 5 0 0 1-7-7L7 11" />
+                  </svg>
+                  <span>Contact Form</span>
+                </a>
               </div>
-
-              <a href="https://t.me/ripcrack" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-slate-900">
-                <svg viewBox="0 0 24 24" className="h-4 w-4 text-emerald-700" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 5 10 12" />
-                  <path d="m21 5-7 16-4-9-8-3z" />
-                </svg>
-                <span>Telegram: @ripcrack</span>
-              </a>
-
-              <a href="https://ripcrack.net/contact" target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-slate-900">
-                <svg viewBox="0 0 24 24" className="h-4 w-4 text-emerald-700" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M10 13a5 5 0 0 1 0-7l.5-.5a5 5 0 0 1 7 7L17 13" />
-                  <path d="M14 11a5 5 0 0 1 0 7l-.5.5a5 5 0 0 1-7-7L7 11" />
-                </svg>
-                <span>Contact Form</span>
-              </a>
             </div>
-          </div>
 
-          <div>
-            <div className="text-sm font-semibold text-slate-900">{t("footer.resources")}</div>
-            <div className="mt-3 space-y-2 text-sm text-slate-600">
-              {footerLinks
-                .filter((l) => String(l?.group || "") === "RESOURCES")
-                .map((l) => {
-                  const labels = (l?.labels || {}) as any;
-                  const label = String(labels?.[lang] || labels?.EN || "").trim() || "-";
-                  const targetType = String(l?.targetType || "");
-                  const targetPage = String(l?.targetPage || "").trim();
-                  const targetUrl = String(l?.targetUrl || "").trim();
-                  return (
-                    <button
-                      key={l.id}
-                      onClick={() => {
-                        if (targetType === "PAGE" && targetPage) setPage(targetPage as any);
-                        else if (targetType === "URL" && targetUrl) window.open(targetUrl, "_blank", "noopener,noreferrer");
-                      }}
-                      className="block hover:text-slate-900"
-                    >
-                      {label}
-                    </button>
-                  );
-                })}
+            <div>
+              <div className="text-sm font-semibold text-slate-900">{t("footer.resources")}</div>
+              <div className="mt-3 space-y-2 text-sm text-slate-600">
+                {footerLinks
+                  .filter((l) => String(l?.group || "") === "RESOURCES")
+                  .map((l) => {
+                    const labels = (l?.labels || {}) as any;
+                    const label = String(labels?.[lang] || labels?.EN || "").trim() || "-";
+                    const targetType = String(l?.targetType || "");
+                    const targetPage = String(l?.targetPage || "").trim();
+                    const targetUrl = String(l?.targetUrl || "").trim();
+                    return (
+                      <button
+                        key={l.id}
+                        onClick={() => {
+                          if (targetType === "PAGE" && targetPage) setPage(targetPage as any);
+                          else if (targetType === "URL" && targetUrl) window.open(targetUrl, "_blank", "noopener,noreferrer");
+                        }}
+                        className="block hover:text-slate-900"
+                      >
+                        {label}
+                      </button>
+                    );
+                  })}
+              </div>
             </div>
-          </div>
 
-          <div>
-            <div className="text-sm font-semibold text-slate-900">{t("footer.information")}</div>
-            <div className="mt-3 space-y-2 text-sm text-slate-600">
-              {footerLinks
-                .filter((l) => String(l?.group || "") === "INFORMATION")
-                .map((l) => {
-                  const labels = (l?.labels || {}) as any;
-                  const label = String(labels?.[lang] || labels?.EN || "").trim() || "-";
-                  const targetType = String(l?.targetType || "");
-                  const targetPage = String(l?.targetPage || "").trim();
-                  const targetUrl = String(l?.targetUrl || "").trim();
-                  return (
-                    <button
-                      key={l.id}
-                      onClick={() => {
-                        if (targetType === "PAGE" && targetPage) setPage(targetPage as any);
-                        else if (targetType === "URL" && targetUrl) window.open(targetUrl, "_blank", "noopener,noreferrer");
-                      }}
-                      className="block hover:text-slate-900"
-                    >
-                      {label}
-                    </button>
-                  );
-                })}
+            <div>
+              <div className="text-sm font-semibold text-slate-900">{t("footer.information")}</div>
+              <div className="mt-3 space-y-2 text-sm text-slate-600">
+                {footerLinks
+                  .filter((l) => String(l?.group || "") === "INFORMATION")
+                  .map((l) => {
+                    const labels = (l?.labels || {}) as any;
+                    const label = String(labels?.[lang] || labels?.EN || "").trim() || "-";
+                    const targetType = String(l?.targetType || "");
+                    const targetPage = String(l?.targetPage || "").trim();
+                    const targetUrl = String(l?.targetUrl || "").trim();
+                    return (
+                      <button
+                        key={l.id}
+                        onClick={() => {
+                          if (targetType === "PAGE" && targetPage) setPage(targetPage as any);
+                          else if (targetType === "URL" && targetUrl) window.open(targetUrl, "_blank", "noopener,noreferrer");
+                        }}
+                        className="block hover:text-slate-900"
+                      >
+                        {label}
+                      </button>
+                    );
+                  })}
+              </div>
             </div>
-          </div>
 
-          <div>
-            <div className="text-sm font-semibold text-slate-900">{t("footer.subscribe")}</div>
-            <div className="text-sm text-slate-600 mt-2">{t("footer.subscriptionHint")}</div>
-            <div className="mt-3 flex gap-2">
-              <input
-                type="email"
-                placeholder={t("footer.subscriptionPlaceholder")}
-                value={subscriptionEmail}
-                onChange={(e) => setSubscriptionEmail(e.target.value)}
-                disabled={subscriptionStatus === "loading"}
-                className="flex-1 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm disabled:opacity-60"
-              />
-              <button
-                type="button"
-                disabled={subscriptionStatus === "loading"}
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  const email = subscriptionEmail.trim();
-                  if (!email) {
-                    const msg = t("footer.subscriptionErrorInvalid") || "Please enter a valid email address.";
-                    setSubscriptionStatus("error");
-                    setSubscriptionMessage(msg);
-                    alert(msg);
-                    return;
-                  }
-                  setSubscriptionStatus("loading");
-                  setSubscriptionMessage("");
-                  (async () => {
-                    try {
-                      await gatewayFetch("/subscribe", { method: "POST", body: JSON.stringify({ email }) });
-                      const successMsg =  "Subscribed successfully.";
-                      setSubscriptionStatus("success");
-                      setSubscriptionMessage(successMsg);
-                      setSubscriptionEmail("");
-                      //alert(successMsg);
-                    } catch (err: any) {
-                      const errorMsg = err?.message || "Failed to subscribe. Please try again.";
+            <div>
+              <div className="text-sm font-semibold text-slate-900">{t("footer.subscribe")}</div>
+              <div className="text-sm text-slate-600 mt-2">{t("footer.subscriptionHint")}</div>
+              <div className="mt-3 flex gap-2">
+                <input
+                  type="email"
+                  placeholder={t("footer.subscriptionPlaceholder")}
+                  value={subscriptionEmail}
+                  onChange={(e) => setSubscriptionEmail(e.target.value)}
+                  disabled={subscriptionStatus === "loading"}
+                  className="flex-1 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm disabled:opacity-60"
+                />
+                <button
+                  type="button"
+                  disabled={subscriptionStatus === "loading"}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const email = subscriptionEmail.trim();
+                    if (!email) {
+                      const msg = t("footer.subscriptionErrorInvalid") || "Please enter a valid email address.";
                       setSubscriptionStatus("error");
-                      setSubscriptionMessage(errorMsg);
-                      //alert(errorMsg);
-                    } finally {
-                      setSubscriptionStatus((s) => (s === "loading" ? "idle" : s));
+                      setSubscriptionMessage(msg);
+                      alert(msg);
+                      return;
                     }
-                  })();
-                }}
-                className="rounded-xl bg-emerald-600 text-white px-4 py-3 text-sm hover:bg-emerald-700 disabled:opacity-60 disabled:cursor-not-allowed"
-              >
-                {subscriptionStatus === "loading" ? ( "Subscribing...") : t("footer.subscriptionCta")}
-              </button>
-            </div>
-            {subscriptionMessage && (
-              <div className={`mt-2 text-sm ${subscriptionStatus === "success" ? "text-emerald-600" : subscriptionStatus === "error" ? "text-red-600" : "text-slate-600"}`}>
-                {subscriptionMessage}
+                    setSubscriptionStatus("loading");
+                    setSubscriptionMessage("");
+                    (async () => {
+                      try {
+                        await gatewayFetch("/subscribe", { method: "POST", body: JSON.stringify({ email }) });
+                        const successMsg = "Subscribed successfully.";
+                        setSubscriptionStatus("success");
+                        setSubscriptionMessage(successMsg);
+                        setSubscriptionEmail("");
+                        //alert(successMsg);
+                      } catch (err: any) {
+                        const errorMsg = err?.message || "Failed to subscribe. Please try again.";
+                        setSubscriptionStatus("error");
+                        setSubscriptionMessage(errorMsg);
+                        //alert(errorMsg);
+                      } finally {
+                        setSubscriptionStatus((s) => (s === "loading" ? "idle" : s));
+                      }
+                    })();
+                  }}
+                  className="rounded-xl bg-emerald-600 text-white px-4 py-3 text-sm hover:bg-emerald-700 disabled:opacity-60 disabled:cursor-not-allowed"
+                >
+                  {subscriptionStatus === "loading" ? ("Subscribing...") : t("footer.subscriptionCta")}
+                </button>
               </div>
-            )}
+              {subscriptionMessage && (
+                <div className={`mt-2 text-sm ${subscriptionStatus === "success" ? "text-emerald-600" : subscriptionStatus === "error" ? "text-red-600" : "text-slate-600"}`}>
+                  {subscriptionMessage}
+                </div>
+              )}
+            </div>
           </div>
-        </div>
 
-        <div className="border-t border-slate-200">
-          <div className="max-w-7xl mx-auto px-6 py-4 text-xs text-slate-500 flex justify-between">
-            <span>© {new Date().getFullYear()} {siteSettings.siteName}. All rights reserved.</span>
-            <span>
-              {t("footer.language")}: {lang}
-            </span>
+          <div className="border-t border-slate-200">
+            <div className="max-w-7xl mx-auto px-6 py-4 text-xs text-slate-500 flex justify-between">
+              <span>© {new Date().getFullYear()} {siteSettings.siteName}. All rights reserved.</span>
+              <span>
+                {t("footer.language")}: {lang}
+              </span>
+            </div>
           </div>
-        </div>
-      </footer>
+        </footer>
       )}
 
       {/* Cookie Consent Banner */}
@@ -13502,20 +13492,20 @@ const AdminSidebar = () => (
               {/* Cookie SVG Icon */}
               <div className="flex-shrink-0">
                 <svg className="w-12 h-12 text-amber-400" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="32" cy="32" r="28" fill="currentColor"/>
-                  <circle cx="20" cy="24" r="4" fill="#78350f"/>
-                  <circle cx="38" cy="20" r="3" fill="#78350f"/>
-                  <circle cx="44" cy="34" r="4" fill="#78350f"/>
-                  <circle cx="26" cy="40" r="3" fill="#78350f"/>
-                  <circle cx="36" cy="44" r="2" fill="#78350f"/>
-                  <circle cx="18" cy="36" r="2" fill="#78350f"/>
-                  <circle cx="28" cy="28" r="2" fill="#78350f"/>
+                  <circle cx="32" cy="32" r="28" fill="currentColor" />
+                  <circle cx="20" cy="24" r="4" fill="#78350f" />
+                  <circle cx="38" cy="20" r="3" fill="#78350f" />
+                  <circle cx="44" cy="34" r="4" fill="#78350f" />
+                  <circle cx="26" cy="40" r="3" fill="#78350f" />
+                  <circle cx="36" cy="44" r="2" fill="#78350f" />
+                  <circle cx="18" cy="36" r="2" fill="#78350f" />
+                  <circle cx="28" cy="28" r="2" fill="#78350f" />
                 </svg>
               </div>
               <div className="flex-1">
                 <div className="font-semibold text-lg">🍪 Cookie Notice</div>
                 <p className="text-sm text-slate-300 mt-2">
-                  We use cookies to enhance your browsing experience, analyze site traffic, and personalize content. 
+                  We use cookies to enhance your browsing experience, analyze site traffic, and personalize content.
                   By clicking "Accept", you consent to our use of cookies.
                 </p>
                 <div className="flex gap-3 mt-4">
@@ -13557,15 +13547,14 @@ const AdminSidebar = () => (
               </button>
             </div>
             <div className="text-sm text-slate-600 mb-4">{addToCartModal.product.title}</div>
-            
+
             <div className="space-y-3 mb-6">
               <button
                 onClick={() => setAddToCartType("Personal")}
-                className={`w-full p-4 rounded-xl border-2 text-left transition ${
-                  addToCartType === "Personal"
+                className={`w-full p-4 rounded-xl border-2 text-left transition ${addToCartType === "Personal"
                     ? "border-emerald-600 bg-emerald-50"
                     : "border-slate-200 bg-white hover:border-slate-300"
-                }`}
+                  }`}
               >
                 <div className="flex items-center justify-between">
                   <div>
@@ -13577,15 +13566,14 @@ const AdminSidebar = () => (
                   </div>
                 </div>
               </button>
-              
+
               {addToCartModal.product.businessPrice && (
                 <button
                   onClick={() => setAddToCartType("Business")}
-                  className={`w-full p-4 rounded-xl border-2 text-left transition ${
-                    addToCartType === "Business"
+                  className={`w-full p-4 rounded-xl border-2 text-left transition ${addToCartType === "Business"
                       ? "border-emerald-600 bg-emerald-50"
                       : "border-slate-200 bg-white hover:border-slate-300"
-                  }`}
+                    }`}
                 >
                   <div className="flex items-center justify-between">
                     <div>
@@ -13692,15 +13680,15 @@ function ChatWidget({ onClose, getDeviceId }: { onClose: () => void; getDeviceId
     const lowerMessage = trimmed.toLowerCase();
     const supportKeywords = ["ask support", "contact support", "support", "help", "human", "agent", "speak with", "talk to"];
     const isAskingForSupport = supportKeywords.some(keyword => lowerMessage.includes(keyword));
-    
+
     // If asking for support and no email provided, request it
     if (isAskingForSupport && !email.trim()) {
       setNeedsEmail(true);
       setBusy(false);
-      setMessages((prev) => [...prev, { 
-        role: "assistant", 
-        text: "I'd be happy to connect you with our support team! Please provide your email address so we can assist you better.", 
-        timestamp: new Date() 
+      setMessages((prev) => [...prev, {
+        role: "assistant",
+        text: "I'd be happy to connect you with our support team! Please provide your email address so we can assist you better.",
+        timestamp: new Date()
       }]);
       return;
     }
@@ -13710,13 +13698,13 @@ function ChatWidget({ onClose, getDeviceId }: { onClose: () => void; getDeviceId
       const base = window.location.hostname !== "localhost" ? "/api" : "http://localhost:3003";
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
-      
+
       const res = await fetch(`${base}/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
         signal: controller.signal,
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           message: trimmed,
           deviceId,
           email: email.trim() || undefined,
@@ -13729,30 +13717,30 @@ function ChatWidget({ onClose, getDeviceId }: { onClose: () => void; getDeviceId
         }
         throw new Error(fetchErr.message || "Failed to connect to server");
       });
-      
+
       clearTimeout(timeoutId);
       const json = await res.json().catch(() => null);
       if (!res.ok) {
         const errorMsg = json?.error || `Chat failed (${res.status})`;
         throw new Error(errorMsg);
       }
-      
+
       if (json.sessionId) setSessionId(json.sessionId);
       if (json.status) setChatStatus(json.status);
       if (json.needsEmail !== undefined) {
         setNeedsEmail(json.needsEmail);
       }
-      
+
       // Simulate typing delay for better UX
       await new Promise(resolve => setTimeout(resolve, 500));
       setMessages((prev) => [...prev, { role: "assistant", text: json.reply || "", timestamp: new Date() }]);
     } catch (e: any) {
       console.error("Chat error:", e);
       setError(e?.message || "Chat failed");
-      setMessages((prev) => [...prev, { 
-        role: "assistant", 
-        text: "Sorry, I'm having trouble connecting. Please try WhatsApp or email for immediate support.", 
-        timestamp: new Date() 
+      setMessages((prev) => [...prev, {
+        role: "assistant",
+        text: "Sorry, I'm having trouble connecting. Please try WhatsApp or email for immediate support.",
+        timestamp: new Date()
       }]);
     } finally {
       setBusy(false);
@@ -13770,14 +13758,14 @@ function ChatWidget({ onClose, getDeviceId }: { onClose: () => void; getDeviceId
     setError(null);
     try {
       const base = window.location.hostname !== "localhost" ? "/api" : "http://localhost:3003";
-      
+
       // If no session exists, create one by sending a message with email
       if (!sessionId) {
         const res = await fetch(`${base}/chat`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
-          body: JSON.stringify({ 
+          body: JSON.stringify({
             message: "Contact support",
             deviceId,
             email: email.trim(),
@@ -13786,21 +13774,21 @@ function ChatWidget({ onClose, getDeviceId }: { onClose: () => void; getDeviceId
         });
         const json = await res.json().catch(() => null);
         if (!res.ok) throw new Error(json?.error || "Failed to create session");
-        
+
         if (json.sessionId) setSessionId(json.sessionId);
         if (json.status) setChatStatus(json.status);
         if (json.reply) {
-          setMessages((prev) => [...prev, { 
-            role: "assistant", 
-            text: json.reply, 
-            timestamp: new Date() 
+          setMessages((prev) => [...prev, {
+            role: "assistant",
+            text: json.reply,
+            timestamp: new Date()
           }]);
         }
         setNeedsEmail(false);
         setBusy(false);
         return;
       }
-      
+
       // If session exists, transfer to human
       const res = await fetch(`${base}/chat/transfer`, {
         method: "POST",
@@ -13810,13 +13798,13 @@ function ChatWidget({ onClose, getDeviceId }: { onClose: () => void; getDeviceId
       });
       const json = await res.json().catch(() => null);
       if (!res.ok) throw new Error(json?.error || "Transfer failed");
-      
+
       setChatStatus("WAITING_FOR_HUMAN");
       setNeedsEmail(false);
-      setMessages((prev) => [...prev, { 
-        role: "assistant", 
-        text: "Thank you! Your request has been sent to our support team. An agent will respond shortly.", 
-        timestamp: new Date() 
+      setMessages((prev) => [...prev, {
+        role: "assistant",
+        text: "Thank you! Your request has been sent to our support team. An agent will respond shortly.",
+        timestamp: new Date()
       }]);
     } catch (e: any) {
       setError(e?.message || "Transfer failed");
@@ -13848,11 +13836,11 @@ function ChatWidget({ onClose, getDeviceId }: { onClose: () => void; getDeviceId
       <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white">
         <div className="flex items-center gap-2">
           <div className="h-2 w-2 rounded-full bg-green-300 animate-pulse"></div>
-        <div className="text-sm font-semibold">Support Chat</div>
-      </div>
+          <div className="text-sm font-semibold">Support Chat</div>
+        </div>
         <button onClick={onClose} className="text-sm hover:bg-white/20 rounded p-1 transition">✕</button>
       </div>
-      
+
       <div className="flex-1 overflow-hidden flex flex-col">
         <div className="p-4 space-y-3 text-sm flex-1 overflow-y-auto">
           {error ? (
@@ -13897,30 +13885,29 @@ function ChatWidget({ onClose, getDeviceId }: { onClose: () => void; getDeviceId
 
           {/* Messages */}
           <div className="space-y-2">
-          {messages.map((m, idx) => (
-            <div
-              key={idx}
-                className={`flex flex-col gap-1 ${
-                  m.role === "user" ? "items-end" : "items-start"
-                }`}
+            {messages.map((m, idx) => (
+              <div
+                key={idx}
+                className={`flex flex-col gap-1 ${m.role === "user" ? "items-end" : "items-start"
+                  }`}
               >
                 <div
-              className={
-                m.role === "user"
+                  className={
+                    m.role === "user"
                       ? "ml-auto max-w-[80%] rounded-2xl bg-emerald-600 text-white px-3 py-2 text-sm"
                       : "mr-auto max-w-[80%] rounded-2xl bg-slate-50 border border-slate-200 px-3 py-2 text-sm text-slate-700"
-              }
-            >
-              {m.text}
+                  }
+                >
+                  {m.text}
                 </div>
                 {m.timestamp && (
                   <div className={`text-xs text-slate-400 px-1 ${m.role === "user" ? "text-right" : "text-left"}`}>
                     {formatTime(m.timestamp)}
                   </div>
                 )}
-            </div>
-          ))}
-            
+              </div>
+            ))}
+
             {typing && (
               <div className="flex items-center gap-1 text-slate-500 text-xs">
                 <span>Support is typing</span>
@@ -14004,9 +13991,9 @@ function ChatWidget({ onClose, getDeviceId }: { onClose: () => void; getDeviceId
               className="flex-1 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
               disabled={busy}
             />
-            <button 
-              onClick={send} 
-              disabled={busy || !input.trim()} 
+            <button
+              onClick={send}
+              disabled={busy || !input.trim()}
               className="rounded-xl bg-emerald-600 text-white px-4 py-2 text-sm hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed transition flex items-center gap-1"
             >
               {busy ? (
